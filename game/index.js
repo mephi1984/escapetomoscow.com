@@ -1894,6 +1894,8 @@ var MEMFS = {
         },
         lookup: function (parent, name) {
             throw FS.genericErrors[44]
+			//vladislav khorev
+			
         },
         mknod: function (parent, name, mode, dev) {
             return MEMFS.createNode(parent, name, mode, dev)
@@ -12799,8 +12801,13 @@ Object.defineProperties(FSNode.prototype, {
         }
     }
 });
+
+//vladislav khorev
+console.log("FS.ErrnoError");
+console.log(FS.ErrnoError);
 FS.FSNode = FSNode;
 FS.staticInit();
+console.log("FS.staticInit(); after");
 Module["FS_createPath"] = FS.createPath;
 Module["FS_createDataFile"] = FS.createDataFile;
 Module["FS_createPreloadedFile"] = FS.createPreloadedFile;

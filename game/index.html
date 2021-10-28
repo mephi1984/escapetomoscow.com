@@ -225,11 +225,13 @@
 
     <script type='text/javascript'>
 	
+	
+	
 	var getStackTrace = function() {
   var obj = {};
   Error.captureStackTrace(obj, getStackTrace);
   return obj.stack;
-};
+};/*
 
 	
 if (typeof console  != "undefined") 
@@ -247,7 +249,7 @@ console.log = function(message) {
 	}
 };
 console.error = console.debug = console.info =  console.log;
-
+*/
 
 
 
