@@ -149,56 +149,6 @@
 
     <script src="https://unpkg.com/@sberdevices/assistant-client@3.4.2/umd/assistant.min.js"></script>
 
-    <script>
-
-      const client = assistant.createSmartappDebugger({
-            // Токен из Кабинета разработчика
-            token: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMWM5OWFjMjRjNDFlNWFlNDk4OGRlZWFiYTIxYTY4YzNhODAwNDA2OWU4MjkyOTM0YjJhYTM0ZDBkNjY0ZWZjNThiMmVlNDYwMjkwMDA4NyIsImF1ZCI6IlZQUyIsImV4cCI6MTYzNjEyMTQzMSwiaWF0IjoxNjM2MDM1MDIxLCJpc3MiOiJLRVlNQVNURVIiLCJ0eXBlIjoiQmVhcmVyIiwianRpIjoiNTlkNDhhYWQtN2Q2Mi00MzQ0LTkwYjctNjk1YWNhNmY0YTdjIiwic2lkIjoiZmQ2NTE3ZTMtMWQwNC00MGVjLThhYmYtYmU3NTBmNGRiODkxIn0.VZw18_n-tqRxVw60bNpjnCPjsh73Mw2xbtNQ1IB85Pv8J0V9ElsGWyzceBbfFh87Zv53JAOJFfQCM8qYR6EDafzeUduh_AQikMJa9rSQC4idDGTwBn2UNR8Dzmvkly7JTAxVtsf29C5WRCBeprs2BoAfZs9ETKIuSIS1buPn39NOHmM6aHwyh6145OYZ42vZkE0m8WuiRkgC0Bj_GiygK039wTFMpjQM72Gpwy3z_ShB3FWT479GD_97M5ubAmgYRbqPE5LzF8M0V3NGbMGZBtVKmSDUK9SQ66sSSXU3QBXnvd13aXkn5BShEH99NGIldmNE9ynwP0_w4wZYkfQnr8TImRoTz9N8aivximdQDsSO-zCwVrygmv0j8k__gze3qr4W7VqSz1rGeEoA3zOJUQI60_iIg_mEnTzx3a3esY1u-vAKE5uJ5luIFuv-tWyoBAXe0cJoLDx_RWgpxz1Zjxm7kNKtVNtZodn1ZBNCzalF2dMHAZUsT7MnTpdbEzZAs0y23F7c5Lzpi44IUhVvrr_AIuZLuKYg6KIz4nr9QNj4HAiwlYTPohlN0x0No401WbIT6neHN19ZuCo2QXlK2_gcNcWS0Id8i5tU3FfyxlhdnHz8WeVVoyzdLz92-AgpoN3FiKOQB3eNSz8GQQN1TQ7WgL9Ok1C2ZbTcIo8-jVY',
-            // Пример фразы для запуска смартапа
-            initPhrase: 'Проверка',
-            // Текущее состояние смартапа
-            getState: () => ({
-			
-			}),
-            // Состояние смартапа, с которым он будет восстановлен при следующем запуске
-            getRecoveryState: () => ({}),
-        });
-		
-		
-		
-		client.on('data', ({ action }) => {
-            if (!action) {
-                return;
-            }
-
-            switch(action.type) {
-                case 'add_note':
-                    var id = Math.random().toString(36).substring(7);
-                    state.item_selector.items.push({
-                        id,
-                        title: action.note,
-                        completed: false
-                    });
-                    addNote(id, action.note, false);
-
-                case 'delete_note':
-                    state.item_selector.items = state.item_selector.items.filter(({ id }) => id !== action.id);
-                    deleteNote(action.id);
-                    break;
-                case 'done_note':
-                    state.item_selector.items = state.item_selector.items.map((note) => (note.id === action.id ? { ...note, completed: true } : note));
-                    doneNote(action.id);
-                default:
-                    console.error('Unsupported action-type', action.type);
-                    break;
-            }
-        });
-
-   </script>
-   <script src="https://cdn-app.sberdevices.ru/shared-static/0.0.0/polyfills/cookie-ls-polyfill.min.js"></script>
-   
-   
-   
   </head>
   <body>
 
@@ -682,6 +632,359 @@ extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
       }
     </script>
     <script async type="text/javascript" src="index.js"></script>
+	
+	
+	<script type="text/javascript">
+	
+	
+	function triggerEventReturnToGame(){
+	 
+
+extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "1",
+    keyCode: 49, // example values.
+    code: "Digit1", // put everything you need in this object.
+    which: 49,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "1",
+    keyCode: 49, // example values.
+    code: "Digit1", // put everything you need in this object.
+    which: 49,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: false,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  function triggerEventGoToMenu()
+	  {
+	  extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "2",
+    keyCode: 50, // example values.
+    code: "Digit2", // put everything you need in this object.
+    which: 50,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "2",
+    keyCode: 50, // example values.
+    code: "Digit2", // put everything you need in this object.
+    which: 50,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: false,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+	  }
+	  
+	  
+	  function triggerEventQuickSave()
+	  {
+	  extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "3",
+    keyCode: 51, // example values.
+    code: "Digit3", // put everything you need in this object.
+    which: 51,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "3",
+    keyCode: 51, // example values.
+    code: "Digit3", // put everything you need in this object.
+    which: 51,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: false,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+	  }
+	  
+	  
+	  
+	  function triggerEventQuickLoad()
+	  {
+	  extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "4",
+    keyCode: 52, // example values.
+    code: "Digit4", // put everything you need in this object.
+    which: 52,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "4",
+    keyCode: 52, // example values.
+    code: "Digit4", // put everything you need in this object.
+    which: 52,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: false,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+	  }
+	  
+	  
+	  function triggerEventStartNewGame()
+	  {
+	  extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "5",
+    keyCode: 53, // example values.
+    code: "Digit5", // put everything you need in this object.
+    which: 53,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "5",
+    keyCode: 53, // example values.
+    code: "Digit5", // put everything you need in this object.
+    which: 53,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: false,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+	  }
+	  
+	  
+	  
+        var token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMWM5OWFjMjRjNDFlNWFlNDk4OGRlZWFiYTIxYTY4YzNhODAwNDA2OWU4MjkyOTM0YjJhYTM0ZDBkNjY0ZWZjNThiMmVlNDYwMjkwMDA4NyIsImF1ZCI6IlZQUyIsImV4cCI6MTYzNjIwNzY1NCwiaWF0IjoxNjM2MTIxMjQ0LCJpc3MiOiJLRVlNQVNURVIiLCJ0eXBlIjoiQmVhcmVyIiwianRpIjoiYTU2MTJmZjYtNGY5OS00N2U4LTkxNTUtODViZjEyNTBmODQzIiwic2lkIjoiZjUxMDg5MGUtNmYwOS00NmM1LTliOTktM2YzZmEzMTk4MDI5In0.frurO-aGSHAe4NwCznw1vjCFGGPIawvB7VQKq83kdYZatHBAONyNA2fbs759M-2vsDevIvagLWCA84aedBvUilHCGu5t0SHe8f0Pve3ocZCU22rmCcneloNjlTVJgXOEwk8bJ5b6HV4KPtYSm1b_Airsswwyq_GjaeH6dkotue61u73JuqQBfRFyteVWiP_ukeLdeKrgodyXGykFSLrOEGUWSkGxPWaCo7zHflvX8c8GctAy-gys78ZRLIIUD8qmefd0XDuai4_mZV2De8VmecrHxLFArutvCYHZyUf7seDt0qTzMMr-NmMmLuzSIQiOpar1tqKFxP9sUMgUBiVzhxQuf04x8zakC04RCimPBCIOTm1PVS_z7w769m0i3m1hMxaoJlQJpaOEfNVSuzH-_Qd8Ya_gwiXGv0DIPxtYORLjPlqoBWmUYWrvCDTeGjPlQywNrbPuJKugqDo4paXUCypmxOJ8diSg3QlkKDtNYYaEyyQ7iR7pCn2GgzzW-OnCoW5_avJo8CaXNvDsBK6UFTcxutYfx3pqhxGHhmnZFgpeNdZ05Rs1Ta6T5RGR7TQXoIRM9OYIcuM57nxGbXkt4J2ha4u29plCkIhgNcsthzuNhDnaPZUAmFIQljlsRVaod_fUgk3gW7IhM8y36zk3DAO_l7IGBzeXjtKBYo5WIsg'; // <- сюда вставляем токен из smartapp-studio
+        var initPhrase = 'Запусти Побег в Москву'; // <- сюда вставляем активизационную фразу
+        var state = { item_selector: { items: [] } };
+
+        function addNote(id, title, completed) {
+            var note = document.createElement('li');
+            note.id = 'note-'+id;
+            note.innerText = title;
+            
+            document.getElementById('root').append(note);
+        }
+
+        function deleteNote(id) {
+            var note = document.getElementById('note-'+id)
+            if (note != null) {
+                note.remove();
+            }
+        }
+
+        function doneNote(id) {
+            var note = document.getElementById('note-'+id)
+            if (note != null) {
+                note.style.textDecoration = 'line-through';
+            }
+        }
+
+        var assistant = assistant.createSmartappDebugger({ getState: () => state, token, initPhrase });
+        assistant.on('data', ({ action }) => {
+            if (!action) {
+                return;
+            }
+
+            switch(action.type) {
+			
+				case 'return_to_game':
+					triggerEventReturnToGame();	 //Alt+1
+					break;
+				case 'go_to_menu':
+					triggerEventGoToMenu();	//Alt+2
+					break;
+				case 'quick_save':
+					triggerEventQuickSave(); //Alt+3
+					break;
+				case 'quick_load':
+					triggerEventQuickLoad(); //Alt+4
+					break;
+				case 'continue_game':
+					triggerEventReturnToGame();	//Alt+1
+					break;
+				case 'start_new_game':
+					triggerEventStartNewGame();	//Alt+5
+					break;
+			
+                case 'add_note':
+                    var id = Math.random().toString(36).substring(7);
+                    state.item_selector.items.push({
+                        id,
+                        title: action.note,
+                        completed: false
+                    });
+                    addNote(id, action.note, false);
+
+                case 'delete_note':
+                    state.item_selector.items = state.item_selector.items.filter(({ id }) => id !== action.id);
+                    deleteNote(action.id);
+                    break;
+                case 'done_note':
+                    state.item_selector.items = state.item_selector.items.map((note) => (note.id === action.id ? { ...note, completed: true } : note));
+                    doneNote(action.id);
+                default:
+                    console.error('Unsupported action-type', action.type);
+                    break;
+            }
+        });
+    </script>
+	
   </body>
 </html>
 
