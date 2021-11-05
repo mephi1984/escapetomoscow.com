@@ -7922,7 +7922,14 @@ function _emscripten_async_call(func, arg, millis) {
         Browser.safeRequestAnimationFrame(wrapper)
     }
 }
+
 function _emscripten_async_wget_data(url, arg, onload, onerror) {
+	
+	//vladislav khorev
+	
+	testOnError = onerror;	
+	
+	/*
     Browser.asyncLoad(UTF8ToString(url), function (byteArray) {
         var buffer = _malloc(byteArray.length);
         HEAPU8.set(byteArray, buffer);
@@ -7935,7 +7942,7 @@ function _emscripten_async_wget_data(url, arg, onload, onerror) {
             (function (a1) {
                 dynCall_vi.apply(null, [onerror, a1])
             })(arg)
-    }, true)
+    }, true)*/
 }
 function _emscripten_cancel_main_loop() {
     Browser.mainLoop.pause();
@@ -11353,7 +11360,19 @@ function registerKeyEventCallback(target, userData, useCapture, callbackfunc, ev
         handlerFunc: keyEventHandlerFunc,
         useCapture: useCapture
     };
-    JSEvents.registerOrRemoveHandler(eventHandler)
+    JSEvents.registerOrRemoveHandler(eventHandler);
+	if (eventTypeString == "keydown")
+	{
+	extraKeyHandler_keydown = eventHandler;
+	}
+	if (eventTypeString == "keyup")
+	{
+	extraKeyHandler_keyup = eventHandler;
+	}
+	if (eventTypeString == "keypress")
+	{
+	extraKeyHandler_keypress = eventHandler;
+	}
 }
 function _emscripten_set_keydown_callback_on_thread(target, userData, useCapture, callbackfunc, targetThread) {
     registerKeyEventCallback(target, userData, useCapture, callbackfunc, 2, "keydown", targetThread);

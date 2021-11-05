@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Побег в Москву</title>
     <script>
-      var DEFAULT_GAME_FILENAME = 'game2.zip';
+      var DEFAULT_GAME_FILENAME = 'game.zip';
     </script>
     <style>
 	  html, body {
@@ -151,15 +151,48 @@
 
     <script>
 
-      window.assistant.createAssistant({
+      const client = assistant.createSmartappDebugger({
+            // Токен из Кабинета разработчика
+            token: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMWM5OWFjMjRjNDFlNWFlNDk4OGRlZWFiYTIxYTY4YzNhODAwNDA2OWU4MjkyOTM0YjJhYTM0ZDBkNjY0ZWZjNThiMmVlNDYwMjkwMDA4NyIsImF1ZCI6IlZQUyIsImV4cCI6MTYzNjEyMTQzMSwiaWF0IjoxNjM2MDM1MDIxLCJpc3MiOiJLRVlNQVNURVIiLCJ0eXBlIjoiQmVhcmVyIiwianRpIjoiNTlkNDhhYWQtN2Q2Mi00MzQ0LTkwYjctNjk1YWNhNmY0YTdjIiwic2lkIjoiZmQ2NTE3ZTMtMWQwNC00MGVjLThhYmYtYmU3NTBmNGRiODkxIn0.VZw18_n-tqRxVw60bNpjnCPjsh73Mw2xbtNQ1IB85Pv8J0V9ElsGWyzceBbfFh87Zv53JAOJFfQCM8qYR6EDafzeUduh_AQikMJa9rSQC4idDGTwBn2UNR8Dzmvkly7JTAxVtsf29C5WRCBeprs2BoAfZs9ETKIuSIS1buPn39NOHmM6aHwyh6145OYZ42vZkE0m8WuiRkgC0Bj_GiygK039wTFMpjQM72Gpwy3z_ShB3FWT479GD_97M5ubAmgYRbqPE5LzF8M0V3NGbMGZBtVKmSDUK9SQ66sSSXU3QBXnvd13aXkn5BShEH99NGIldmNE9ynwP0_w4wZYkfQnr8TImRoTz9N8aivximdQDsSO-zCwVrygmv0j8k__gze3qr4W7VqSz1rGeEoA3zOJUQI60_iIg_mEnTzx3a3esY1u-vAKE5uJ5luIFuv-tWyoBAXe0cJoLDx_RWgpxz1Zjxm7kNKtVNtZodn1ZBNCzalF2dMHAZUsT7MnTpdbEzZAs0y23F7c5Lzpi44IUhVvrr_AIuZLuKYg6KIz4nr9QNj4HAiwlYTPohlN0x0No401WbIT6neHN19ZuCo2QXlK2_gcNcWS0Id8i5tU3FfyxlhdnHz8WeVVoyzdLz92-AgpoN3FiKOQB3eNSz8GQQN1TQ7WgL9Ok1C2ZbTcIo8-jVY',
+            // Пример фразы для запуска смартапа
+            initPhrase: 'Проверка',
+            // Текущее состояние смартапа
+            getState: () => ({
+			
+			}),
+            // Состояние смартапа, с которым он будет восстановлен при следующем запуске
+            getRecoveryState: () => ({}),
+        });
+		
+		
+		
+		client.on('data', ({ action }) => {
+            if (!action) {
+                return;
+            }
 
-        getState: () => {
+            switch(action.type) {
+                case 'add_note':
+                    var id = Math.random().toString(36).substring(7);
+                    state.item_selector.items.push({
+                        id,
+                        title: action.note,
+                        completed: false
+                    });
+                    addNote(id, action.note, false);
 
-          return {};
-
-        },
-
-      });
+                case 'delete_note':
+                    state.item_selector.items = state.item_selector.items.filter(({ id }) => id !== action.id);
+                    deleteNote(action.id);
+                    break;
+                case 'done_note':
+                    state.item_selector.items = state.item_selector.items.map((note) => (note.id === action.id ? { ...note, completed: true } : note));
+                    doneNote(action.id);
+                default:
+                    console.error('Unsupported action-type', action.type);
+                    break;
+            }
+        });
 
    </script>
    <script src="https://cdn-app.sberdevices.ru/shared-static/0.0.0/polyfills/cookie-ls-polyfill.min.js"></script>
@@ -213,6 +246,7 @@
         <a href="javascript:document.getElementById('ID_SavegamesImport').click();">Import saves</a><br />
         <a href="javascript:onSavegamesExport();">Export saves</a><br />
         <a href="javascript:FSDownload('/log.txt', 'text/plain');">Ren'Py log</a><br />
+		<a href="javascript:playTestSound();">PlayTestSound</a><br />
         <a href="https://renpy.beuc.net/" target="_blank">
           <span style="font-size: smaller">
             <span style="color: dimgrey">Powered by</span>
@@ -224,6 +258,8 @@
     </div>
 
     <script type='text/javascript'>
+	
+	//document.wowdata = "a ";
 	
 	
 	
@@ -292,6 +328,136 @@ console.error = console.debug = console.info =  console.log;
           FSDownload('savegames.zip', 'application/zip');
         }
       }
+	  
+	  function playTestSound(){
+	 
+/*	 document.wowdata = "Wooow"; 
+	  
+	  
+	  (function (a1) {
+                dynCall_vi.apply(null, [testOnError, a1])
+            })(555);*/
+	  
+	    /*var ret = Module.ccall('PyRun_SimpleString', 'number', ['string'], [
+		"import renpy\n" + 
+          "renpy.notify( \"Something happened\" )\n"
+        ])
+        if (ret != 0) {
+            Module.setStatus("Error playTestSound.");
+            return;
+        }*/
+		
+		/*
+document.getElementById('canvas').dispatchEvent(new KeyboardEvent("keydown", {
+    key: "1",
+    keyCode: 49, // example values.
+    code: "Key1", // put everything you need in this object.
+    which: 49,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+document.getElementById('canvas').dispatchEvent(new KeyboardEvent("keyup", {
+    key: "1",
+    keyCode: 49, // example values.
+    code: "Key1", // put everything you need in this object.
+    which: 49,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+    metaKey: false   // these are here for example's sake.
+}));
+*/
+
+/*
+var keyboardEvent = document.createEvent('KeyboardEvent');
+var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent';
+
+keyboardEvent[initMethod](
+  'keydown', // event type: keydown, keyup, keypress
+  true, // bubbles
+  true, // cancelable
+  window, // view: should be window
+  false, // ctrlKey
+  true, // altKey
+  false, // shiftKey
+  false, // metaKey
+  49, // keyCode: unsigned long - the virtual key code, else 0
+  0, // charCode: unsigned long - the Unicode character associated with the depressed key, else 0
+);
+document.dispatchEvent(keyboardEvent);
+
+
+var keyboardEvent2 = document.createEvent('KeyboardEvent');
+var initMethod2 = typeof keyboardEvent2.initKeyboardEvent !== 'undefined' ? 'initKeyboardEvent' : 'initKeyEvent';
+
+keyboardEvent2[initMethod2](
+  'keyup', // event type: keydown, keyup, keypress
+  true, // bubbles
+  true, // cancelable
+  window, // view: should be window
+  false, // ctrlKey
+  true, // altKey
+  false, // shiftKey
+  false, // metaKey
+  49, // keyCode: unsigned long - the virtual key code, else 0
+  0, // charCode: unsigned long - the Unicode character associated with the depressed key, else 0
+);
+document.dispatchEvent(keyboardEvent2);*/
+
+
+
+extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keydown.handlerFunc(new KeyboardEvent("keydown", {
+    key: "1",
+    keyCode: 49, // example values.
+    code: "Digit1", // put everything you need in this object.
+    which: 49,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "1",
+    keyCode: 49, // example values.
+    code: "Digit1", // put everything you need in this object.
+    which: 49,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: true,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+
+
+extraKeyHandler_keyup.handlerFunc(new KeyboardEvent("keyup", {
+    key: "Alt",
+    keyCode: 18, // example values.
+    code: "AltLeft", // put everything you need in this object.
+    which: 18,
+    shiftKey: false, // you don't need to include values
+    ctrlKey: false,  // if you aren't going to use them.
+	altKey: false,
+	composed: true,
+    metaKey: false   // these are here for example's sake.
+}));
+	  }
 
       function gameExtractAndRun() {
         start = Date.now();
