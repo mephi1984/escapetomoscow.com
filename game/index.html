@@ -141,7 +141,6 @@
             left: 10px;
             top: 10px;
             color: white;
-            display: none;
         }
         
         #ContextButton {
@@ -695,11 +694,18 @@
             }
         };
 
-        var assistant = assistant.createSmartappDebugger({
-            getState: () => state,
-            token,
-            initPhrase
+
+        var assistant = assistant.createAssistant({
+            getState: () => ({}),
+            getRecoveryState: () => ({}),
         });
+
+        /*
+                var assistant = assistant.createSmartappDebugger({
+                    getState: () => state,
+                    token,
+                    initPhrase
+                });*/
         assistant.on('data', ({
             action
         }) => {
