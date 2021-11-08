@@ -51,11 +51,12 @@ Module["onRuntimeInitialized"] = function() {
                 num++
             }
             total = Math.ceil(total * Module.expectedDataFileDownloads / num);
+            //Vladislav Khorev text
             if (Module["setStatus"])
-                Module["setStatus"]("Downloading Story... (" + loaded + "/" + total + ")")
+                Module["setStatus"]("Скачивание истории... (" + loaded + "/" + total + ")")
         } else if (!Module.dataFileDownloads) {
             if (Module["setStatus"])
-                Module["setStatus"]("Downloading Story...")
+                Module["setStatus"]("Скачивание истории...")
         }
     };
     xhr.onerror = function(event) {
@@ -70,7 +71,7 @@ Module["onRuntimeInitialized"] = function() {
             });
             if (Module["setStatus"])
                 Module["setStatus"]("");
-            Module.print("Extracting Story...\n");
+            Module.print("Распаковка истории...\n");
             window.setTimeout(function() {
                 gameExtractAndRun()
             }, 200)
@@ -84,7 +85,7 @@ Module["onRuntimeInitialized"] = function() {
 };
 Module["quit"] = function() {
     console.log("RenPyWeb: quit");
-    Module["setStatus"]("Bye!");
+    Module["setStatus"]("Пока!");
     if (noExitRuntime) {
         noExitRuntime = false;
         exit(0)
@@ -7298,7 +7299,7 @@ var Browser = {
                 onerror()
             } else {
                 //vladislav khorev - change text
-                throw 'Loading data file "' + url + '" failed.'
+                throw 'Загрузка файла данных "' + url + '" не удалась.'
             }
         });
         if (dep)
@@ -14603,7 +14604,7 @@ function run(args) {
         postRun()
     }
     if (Module["setStatus"]) {
-        Module["setStatus"]("Running...");
+        Module["setStatus"]("Запуск...");
         setTimeout(function() {
             setTimeout(function() {
                 Module["setStatus"]("")

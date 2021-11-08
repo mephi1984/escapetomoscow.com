@@ -345,7 +345,7 @@ Module.expectedDataFileDownloads++;
                         }, preloadFallback);
                 }, preloadFallback);
 
-            if (Module['setStatus']) Module['setStatus']('Downloading...');
+            if (Module['setStatus']) Module['setStatus']('Скачивание...');
 
         }
         if (Module['calledRun']) {

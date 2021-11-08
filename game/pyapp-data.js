@@ -56,9 +56,11 @@ Module.expectedDataFileDownloads++;
                         num++;
                     }
                     total = Math.ceil(total * Module.expectedDataFileDownloads / num);
-                    if (Module['setStatus']) Module['setStatus']('Downloading data... (' + loaded + '/' + total + ')');
+
+                    //Vladislav Khorev texts
+                    if (Module['setStatus']) Module['setStatus']('Скачивание данных... (' + loaded + '/' + total + ')');
                 } else if (!Module.dataFileDownloads) {
-                    if (Module['setStatus']) Module['setStatus']('Downloading data...');
+                    if (Module['setStatus']) Module['setStatus']('Скачивание данных...');
                 }
             };
             xhr.onerror = function(event) {
