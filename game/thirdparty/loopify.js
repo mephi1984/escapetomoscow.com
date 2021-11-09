@@ -27,7 +27,7 @@
 
             var source;
 
-            function play() {
+            function play(delay) {
 
                 // Stop if it's already playing
                 stop();
@@ -41,7 +41,7 @@
                 source.loop = true;
 
                 // Play it
-                source.start(0);
+                source.start(delay);
 
             }
 
@@ -71,7 +71,8 @@
     } else if (typeof module === "object" && module.exports) {
         module.exports = loopify;
     } else {
-        this.loopifyWithFadeIn = loopify;
+        //Here is where it is connected
+        this.loopify = loopify;
     }
 
 })();

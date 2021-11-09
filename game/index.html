@@ -294,99 +294,12 @@
         </div>
     </div>
 
-
+    <script type='text/javascript' src="thirdparty/loopify.js"></script>
     <script type='text/javascript' src="thirdparty/loopifyWithFadeIn.js"></script>
 
+    <script type='text/javascript' src="audio.js"></script>
+
     <script type='text/javascript'>
-        //Init sounds
-
-        var audio_Runaway_01 = null;
-
-        var audio_Runaway_02 = null;
-
-        var audio_Runaway_03 = null;
-
-        var audio_Runaway_04 = null;
-
-        var audio_Runaway_08 = null;
-
-        var audio_Runaway_09 = null;
-
-        var audio_Runaway_16 = null;
-
-        loopify("audio/music/Runaway_01 (Loop).ogg", function(err, loop) {
-
-            if (err) {
-                console.warn(err);
-            }
-
-            audio_Runaway_01 = loop;
-        });
-
-        loopify("audio/music/Runaway_02 (Loop).ogg", function(err, loop) {
-
-            if (err) {
-                console.warn(err);
-            }
-
-            audio_Runaway_02 = loop;
-        });
-
-        loopify("audio/music/Runaway_03 (Loop).ogg", function(err, loop) {
-
-            if (err) {
-                console.warn(err);
-            }
-
-            audio_Runaway_03 = loop;
-        });
-
-        loopify("audio/music/Runaway_04.ogg", function(err, loop) {
-
-            if (err) {
-                console.warn(err);
-            }
-
-            audio_Runaway_04 = loop;
-        });
-
-        loopify("audio/music/Runaway_08 (Loop).ogg", function(err, loop) {
-
-            if (err) {
-                console.warn(err);
-            }
-
-            audio_Runaway_08 = loop;
-        });
-
-        loopify("audio/music/Runaway_09 (Loop).ogg", function(err, loop) {
-
-            if (err) {
-                console.warn(err);
-            }
-
-            audio_Runaway_09 = loop;
-        });
-
-        loopify("audio/music/Runaway_16 (Loop).ogg", function(err, loop) {
-
-            if (err) {
-                console.warn(err);
-            }
-
-            audio_Runaway_16 = loop;
-        });
-
-        /*
-        loopify("audio/music/Runaway_09 (Loop).ogg", function(err, loop) {
-
-            if (err) {
-                console.warn(err);
-            }
-
-            audio_Runaway_09 = loop;
-        });*/
-
         document.getElementById('ContextButton').addEventListener('click', function(e) {
             var menu = document.getElementById('ContextMenu');
             if (menu.style.display == 'none')
@@ -423,95 +336,7 @@
             }
         }
 
-        function playTestSound() {
-
-            if (audio_Runaway_09) {
-                audio_Runaway_09.stop();
-                audio_Runaway_09.play();
-            }
-
-            //var audio = document.getElementById("Runaway_09");
-
-            //getSoundAndFadeInAudio(audio);
-
-        }
-
-        function stopAllMusic() {
-            if (audio_Runaway_01) {
-                audio_Runaway_01.stop();
-            }
-
-            if (audio_Runaway_02) {
-                audio_Runaway_02.stop();
-            }
-
-            if (audio_Runaway_03) {
-                audio_Runaway_03.stop();
-            }
-
-            if (audio_Runaway_04) {
-                audio_Runaway_04.stop();
-            }
-
-            if (audio_Runaway_08) {
-                audio_Runaway_08.stop();
-            }
-
-            if (audio_Runaway_09) {
-                audio_Runaway_09.stop();
-            }
-
-            if (audio_Runaway_16) {
-                audio_Runaway_16.stop();
-            }
-        }
-
-        function playRunaway01IfNotPlaying() {
-            if (audio_Runaway_01) {
-                if (!audio_Runaway_01.isPlaying()) {
-                    stopAllMusic();
-                    audio_Runaway_01.play();
-                }
-            }
-        }
-
-        function playRunaway01() {
-            stopAllMusic();
-            if (audio_Runaway_01) {
-                audio_Runaway_01.play();
-            }
-        }
-
-        function playRunaway02() {
-            stopAllMusic();
-            audio_Runaway_02.play();
-        }
-
-        function playRunaway03() {
-            stopAllMusic();
-            audio_Runaway_03.play();
-        }
-
-        function playRunaway04() {
-            stopAllMusic();
-            audio_Runaway_04.play();
-        }
-
-
-        function playRunaway08() {
-            stopAllMusic();
-            audio_Runaway_08.play();
-        }
-
-        function playRunaway09() {
-            stopAllMusic();
-            audio_Runaway_09.play();
-        }
-
-        function playRunaway16() {
-            stopAllMusic();
-            audio_Runaway_16.play();
-        }
+        function playTestSound() {}
 
         function gameExtractAndRun() {
             start = Date.now();

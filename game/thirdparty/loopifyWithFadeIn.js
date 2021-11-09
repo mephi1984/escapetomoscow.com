@@ -1,6 +1,6 @@
 (function() {
 
-    function loopify(uri, cb) {
+    function loopifyWithFadeIn(uri, cb) {
 
         var context = new(window.AudioContext || window.webkitAudioContext)(),
             request = new XMLHttpRequest();
@@ -27,7 +27,9 @@
 
             var source = null;
 
-            function play() {
+            var gainNode = null;
+
+            function play(delay = 0) {
 
                 // Stop if it's already playing
                 stop();
@@ -40,13 +42,14 @@
                 source.buffer = buffer;
                 source.loop = true;
 
-                var gainNode = context.createGain();
+                gainNode = context.createGain();
 
                 source.connect(gainNode);
                 gainNode.connect(context.destination);
 
                 gainNode.gain.setValueAtTime(0.0, context.currentTime);
-                gainNode.gain.linearRampToValueAtTime(1.0, context.currentTime + 2);
+                gainNode.gain.linearRampToValueAtTime(0.0, delay + context.currentTime);
+                gainNode.gain.linearRampToValueAtTime(1.0, delay + context.currentTime + 2);
 
                 // Play it
                 source.start(0);
@@ -65,6 +68,20 @@
 
             }
 
+            function stopWithFadeOut(dt) {
+                if (gainNode) {
+                    gainNode.gain.setValueAtTime(1.0, context.currentTime);
+                    gainNode.gain.linearRampToValueAtTime(0.0, context.currentTime + dt);
+
+                }
+
+                if (source) {
+
+                    source.stop(context.currentTime + dt);
+                    source = null;
+                }
+            }
+
             function isPlaying() {
                 return source != null;
             }
@@ -72,6 +89,7 @@
             cb(null, {
                 play: play,
                 stop: stop,
+                stopWithFadeOut: stopWithFadeOut,
                 isPlaying: isPlaying
             });
 
@@ -79,14 +97,14 @@
 
     }
 
-    loopify.version = "0.1";
+    loopifyWithFadeIn.version = "0.1";
 
     if (typeof define === "function" && define.amd) {
-        define(function() { return loopify; });
+        define(function() { return loopifyWithFadeIn; });
     } else if (typeof module === "object" && module.exports) {
-        module.exports = loopify;
+        module.exports = loopifyWithFadeIn;
     } else {
-        this.loopify = loopify;
+        this.loopifyWithFadeIn = loopifyWithFadeIn;
     }
 
 })();
