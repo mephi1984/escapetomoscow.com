@@ -88,6 +88,18 @@ var audio_Runaway_08 = null;
 
 var audio_Runaway_09 = null;
 
+var audio_Runaway_10 = null;
+
+var audio_Runaway_11 = null;
+
+var audio_Runaway_12 = null;
+
+var audio_Runaway_13 = null;
+
+var audio_Runaway_14 = null;
+
+var audio_Runaway_15 = null;
+
 var audio_Runaway_16 = null;
 
 var audio_ambience_airplane_1ambience_before_landing_loop = null;
@@ -115,6 +127,12 @@ var ambience_metro_train_loop = null;
 var ambience_metro_arrived = null;
 
 var ambience_metro_loop_after_arrival = null;
+
+var ambience_kazakhstan_airplane_before_takeoff_ambience = null;
+
+var ambience_takeoff_kazakhstan = null;
+
+var ambience_kazakhstan_after_takeoff_ambience = null;
 
 
 loopifyWithFadeIn("audio/music/Runaway_01 (Loop).ogg", function(err, loop) {
@@ -197,6 +215,60 @@ loopifyWithFadeIn("audio/music/Runaway_09 (Loop).ogg", function(err, loop) {
     }
 
     audio_Runaway_09 = loop;
+});
+
+loopifyWithFadeIn("audio/music/Runaway_10 (Loop).ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    audio_Runaway_10 = loop;
+});
+
+loopifyWithFadeIn("audio/music/Runaway_11 (Loop).ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    audio_Runaway_11 = loop;
+});
+
+loopifyWithFadeIn("audio/music/Runaway_12 (Loop).ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    audio_Runaway_12 = loop;
+});
+
+loopifyWithFadeIn("audio/music/Runaway_13 (Loop).ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    audio_Runaway_13 = loop;
+});
+
+loopifyWithFadeIn("audio/music/Runaway_14 (Loop).ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    audio_Runaway_14 = loop;
+});
+
+loopifyWithFadeIn("audio/music/Runaway_15 (Loop).ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    audio_Runaway_15 = loop;
 });
 
 loopifyWithFadeIn("audio/music/Runaway_16 (Loop).ogg", function(err, loop) {
@@ -333,6 +405,38 @@ loopifyWithFadeIn("audio/ambience/metro_loop_after_arrival.ogg", function(err, l
     ambience_metro_loop_after_arrival = loop;
 });
 
+loopifyWithFadeIn("audio/ambience/kazakhstan_airplane_before_takeoff_ambience.ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    ambience_kazakhstan_airplane_before_takeoff_ambience = loop;
+});
+
+
+
+
+createSound("audio/ambience/takeoff_kazakhstan.ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    ambience_takeoff_kazakhstan = loop;
+});
+
+
+
+loopifyWithFadeIn("audio/ambience/kazakhstan_after_takeoff_ambience.ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    ambience_kazakhstan_after_takeoff_ambience = loop;
+});
+
 
 function stopAllMusicExceptRunaway05andRunaway07() {
     if (audio_Runaway_01) {
@@ -361,6 +465,30 @@ function stopAllMusicExceptRunaway05andRunaway07() {
 
     if (audio_Runaway_09) {
         audio_Runaway_09.stop();
+    }
+
+    if (audio_Runaway_10) {
+        audio_Runaway_10.stop();
+    }
+
+    if (audio_Runaway_11) {
+        audio_Runaway_11.stop();
+    }
+
+    if (audio_Runaway_12) {
+        audio_Runaway_12.stop();
+    }
+
+    if (audio_Runaway_13) {
+        audio_Runaway_13.stop();
+    }
+
+    if (audio_Runaway_14) {
+        audio_Runaway_14.stop();
+    }
+
+    if (audio_Runaway_15) {
+        audio_Runaway_15.stop();
     }
 
     if (audio_Runaway_16) {
@@ -411,6 +539,17 @@ function stopAllMusicExceptRunaway05andRunaway07() {
         ambience_metro_loop_after_arrival.stop();
     }
 
+    if (ambience_kazakhstan_airplane_before_takeoff_ambience) {
+        ambience_kazakhstan_airplane_before_takeoff_ambience.stop();
+    }
+
+    if (ambience_takeoff_kazakhstan) {
+        ambience_takeoff_kazakhstan.stop();
+    }
+
+    if (ambience_kazakhstan_after_takeoff_ambience) {
+        ambience_kazakhstan_after_takeoff_ambience.stop();
+    }
 }
 
 function stopAllMusicExceptRunaway05() {
@@ -516,6 +655,38 @@ function playRunaway09() {
     audio_Runaway_09.play();
 }
 
+
+function playRunaway10() {
+    stopAllMusic();
+    audio_Runaway_10.play();
+}
+
+function playRunaway11() {
+    stopAllMusic();
+    audio_Runaway_11.play();
+}
+
+function playRunaway12() {
+    stopAllMusic();
+    audio_Runaway_12.play();
+}
+
+function playRunaway13() {
+    stopAllMusic();
+    audio_Runaway_13.play();
+}
+
+function playRunaway14() {
+    stopAllMusic();
+    audio_Runaway_14.play();
+}
+
+function playRunaway15() {
+    stopAllMusic();
+    audio_Runaway_15.play();
+}
+
+
 function playRunaway16() {
     stopAllMusic();
     audio_Runaway_16.play();
@@ -587,4 +758,20 @@ function play_ambience_metro_arrived() {
 
 function play_ambience_metro_loop_after_arrival(delay) {
     ambience_metro_loop_after_arrival.play(delay);
+}
+
+function play_ambience_kazakhstan_airplane_before_takeoff_ambience() {
+    stopAllMusic();
+    ambience_kazakhstan_airplane_before_takeoff_ambience.play();
+}
+
+
+function play_ambience_takeoff_kazakhstan() {
+    stopAllMusic();
+    ambience_takeoff_kazakhstan.play();
+}
+
+
+function play_ambience_kazakhstan_after_takeoff_ambience(delay) {
+    ambience_kazakhstan_after_takeoff_ambience.play(delay);
 }
