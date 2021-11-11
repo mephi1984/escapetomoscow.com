@@ -135,6 +135,12 @@ var ambience_takeoff_kazakhstan = null;
 var ambience_kazakhstan_after_takeoff_ambience = null;
 
 
+var audio_sound_teaser_drum = null;
+
+var audio_sound_teaser_vibro = null;
+
+
+
 loopifyWithFadeIn("audio/music/Runaway_01 (Loop).ogg", function(err, loop) {
 
     if (err) {
@@ -427,14 +433,35 @@ createSound("audio/ambience/takeoff_kazakhstan.ogg", function(err, loop) {
 });
 
 
-
-loopifyWithFadeIn("audio/ambience/kazakhstan_after_takeoff_ambience.ogg", function(err, loop) {
+createSound("audio/ambience/kazakhstan_after_takeoff_ambience.ogg", function(err, loop) {
 
     if (err) {
         console.warn(err);
     }
 
     ambience_kazakhstan_after_takeoff_ambience = loop;
+});
+
+
+
+
+createSound("audio/sound/teaser/546621__jose-danielms__cinematic-drum-sub.ogg", function(err, sound) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    audio_sound_teaser_drum = sound;
+});
+
+
+createSound("audio/sound/teaser/555154__nomerodin1__vibrating-message.ogg", function(err, loop) {
+
+    if (err) {
+        console.warn(err);
+    }
+
+    audio_sound_teaser_vibro = loop;
 });
 
 
@@ -693,7 +720,7 @@ function playRunaway16() {
 }
 
 function play_airplane_1ambience_before_landing_loop() {
-    stopAllMusic();
+    stopAllMusicExceptRunaway07();
     audio_ambience_airplane_1ambience_before_landing_loop.play();
 }
 
@@ -707,7 +734,7 @@ function play_airplane_2landed_shortened() {
 }
 
 
-function play_audio_ambience_airplane_3after_landing_loop(delay) {
+function play_audio_ambience_airplane_3after_landing_loop(delay = 2.5) {
     stopAllMusicExceptRunaway07();
     audio_ambience_airplane_3after_landing_loop.play(delay);
 }
@@ -756,7 +783,7 @@ function play_ambience_metro_arrived() {
 }
 
 
-function play_ambience_metro_loop_after_arrival(delay) {
+function play_ambience_metro_loop_after_arrival(delay = 2.5) {
     ambience_metro_loop_after_arrival.play(delay);
 }
 
@@ -772,6 +799,15 @@ function play_ambience_takeoff_kazakhstan() {
 }
 
 
-function play_ambience_kazakhstan_after_takeoff_ambience(delay) {
+function play_ambience_kazakhstan_after_takeoff_ambience(delay = 2.5) {
     ambience_kazakhstan_after_takeoff_ambience.play(delay);
+}
+
+
+function play_sound_teaser_drum() {
+    audio_sound_teaser_drum.play();
+}
+
+function play_sound_teaser_vibro() {
+    audio_sound_teaser_vibro.play();
 }
