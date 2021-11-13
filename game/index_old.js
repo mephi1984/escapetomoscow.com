@@ -14,6 +14,14 @@ Module["onRuntimeInitialized"] = function() {
             throw "Invalid game filename."
         }
     }
+
+
+    if (_GET["forceIgnoreCache"]) {
+        Module.forceIgnoreCache = true;
+    } else {
+        Module.forceIgnoreCache = false;
+    }
+
     var xhr = new XMLHttpRequest;
     xhr.open("GET", url, true);
     xhr.responseType = "arraybuffer";
@@ -43,11 +51,12 @@ Module["onRuntimeInitialized"] = function() {
                 num++
             }
             total = Math.ceil(total * Module.expectedDataFileDownloads / num);
+            //Vladislav Khorev text
             if (Module["setStatus"])
-                Module["setStatus"]("Downloading Story... (" + loaded + "/" + total + ")")
+                Module["setStatus"]("Скачивание истории... (" + loaded + "/" + total + ")")
         } else if (!Module.dataFileDownloads) {
             if (Module["setStatus"])
-                Module["setStatus"]("Downloading Story...")
+                Module["setStatus"]("Скачивание истории...")
         }
     };
     xhr.onerror = function(event) {
@@ -62,7 +71,7 @@ Module["onRuntimeInitialized"] = function() {
             });
             if (Module["setStatus"])
                 Module["setStatus"]("");
-            Module.print("Extracting Story...\n");
+            Module.print("Распаковка истории...\n");
             window.setTimeout(function() {
                 gameExtractAndRun()
             }, 200)
@@ -76,7 +85,7 @@ Module["onRuntimeInitialized"] = function() {
 };
 Module["quit"] = function() {
     console.log("RenPyWeb: quit");
-    Module["setStatus"]("Bye!");
+    Module["setStatus"]("Пока!");
     if (noExitRuntime) {
         noExitRuntime = false;
         exit(0)
@@ -1089,12 +1098,14 @@ var ASM_CONSTS = {
         return 0
     },
     2715066: function($0, $1, $2, $3, $4) {
+        //Vladislav Khorev fix device pixel ratio
         var w = $0;
         var h = $1;
         var hot_x = $2;
         var hot_y = $3;
         var pixels = $4;
         var canvas = document.createElement("canvas");
+
         canvas.width = w;
         canvas.height = h;
         var ctx = canvas.getContext("2d");
@@ -1137,15 +1148,23 @@ var ASM_CONSTS = {
         }
     },
     2716217: function() {
-        return screen.width
+        //Vladislav Khorev fix device pixel ratio
+        return screen.width * 2
+            //return screen.width
     },
     2716242: function() {
-        return screen.height
+        //Vladislav Khorev fix device pixel ratio
+        return screen.height * 2
+            //return screen.height
     },
     2716268: function() {
+        //Vladislav Khorev fix device pixel ratio
+        //return window.innerWidth * 2
         return window.innerWidth
     },
     2716298: function() {
+        //Vladislav Khorev fix device pixel ratio
+        //return window.innerHeight * 2
         return window.innerHeight
     },
     2716329: function($0) {
@@ -1959,6 +1978,8 @@ var MEMFS = {
         },
         lookup: function(parent, name) {
             throw FS.genericErrors[44]
+                //vladislav khorev
+
         },
         mknod: function(parent, name, mode, dev) {
             return MEMFS.createNode(parent, name, mode, dev)
@@ -7226,6 +7247,7 @@ var Browser = {
             }
         } else {
             var rect = Module["canvas"].getBoundingClientRect();
+            //Vladislav Khorev SberBox
             var cw = Module["canvas"].width;
             var ch = Module["canvas"].height;
             var scrollX = typeof window.scrollX !== "undefined" ? window.scrollX : window.pageXOffset;
@@ -7276,7 +7298,8 @@ var Browser = {
             if (onerror) {
                 onerror()
             } else {
-                throw 'Loading data file "' + url + '" failed.'
+                //vladislav khorev - change text
+                throw 'Загрузка файла данных "' + url + '" не удалась.'
             }
         });
         if (dep)
@@ -7316,51 +7339,55 @@ var Browser = {
         Browser.updateResizeListeners()
     },
     updateCanvasDimensions: function(canvas, wNative, hNative) {
-        if (wNative && hNative) {
-            canvas.widthNative = wNative;
-            canvas.heightNative = hNative
-        } else {
-            wNative = canvas.widthNative;
-            hNative = canvas.heightNative
-        }
-        var w = wNative;
-        var h = hNative;
-        if (Module["forcedAspectRatio"] && Module["forcedAspectRatio"] > 0) {
-            if (w / h < Module["forcedAspectRatio"]) {
-                w = Math.round(h * Module["forcedAspectRatio"])
-            } else {
-                h = Math.round(w / Module["forcedAspectRatio"])
-            }
-        }
-        if ((document["fullscreenElement"] || document["mozFullScreenElement"] || document["msFullscreenElement"] || document["webkitFullscreenElement"] || document["webkitCurrentFullScreenElement"]) === canvas.parentNode && typeof screen != "undefined") {
-            var factor = Math.min(screen.width / w, screen.height / h);
-            w = Math.round(w * factor);
-            h = Math.round(h * factor)
-        }
-        if (Browser.resizeCanvas) {
-            if (canvas.width != w)
-                canvas.width = w;
-            if (canvas.height != h)
-                canvas.height = h;
-            if (typeof canvas.style != "undefined") {
-                canvas.style.removeProperty("width");
-                canvas.style.removeProperty("height")
-            }
-        } else {
-            if (canvas.width != wNative)
-                canvas.width = wNative;
-            if (canvas.height != hNative)
-                canvas.height = hNative;
-            if (typeof canvas.style != "undefined") {
-                if (w != wNative || h != hNative) {
-                    canvas.style.setProperty("width", w + "px", "important");
-                    canvas.style.setProperty("height", h + "px", "important")
+        /*
+                if (wNative && hNative) {
+                    canvas.widthNative = wNative;
+                    canvas.heightNative = hNative
                 } else {
-                    canvas.style.removeProperty("width");
-                    canvas.style.removeProperty("height")
+                    wNative = canvas.widthNative;
+                    hNative = canvas.heightNative
                 }
-            }
-        }
+                //Vladislav Khorev Fix SberBox
+                var w = wNative;
+                var h = hNative;
+                if (Module["forcedAspectRatio"] && Module["forcedAspectRatio"] > 0) {
+                    if (w / h < Module["forcedAspectRatio"]) {
+                        w = Math.round(h * Module["forcedAspectRatio"])
+                    } else {
+                        h = Math.round(w / Module["forcedAspectRatio"])
+                    }
+                }
+                if ((document["fullscreenElement"] || document["mozFullScreenElement"] || document["msFullscreenElement"] || document["webkitFullscreenElement"] || document["webkitCurrentFullScreenElement"]) === canvas.parentNode && typeof screen != "undefined") {
+                    var factor = Math.min(screen.width / w, screen.height / h);
+                    w = Math.round(w * factor);
+                    h = Math.round(h * factor)
+                }
+                if (Browser.resizeCanvas) {
+                    if (canvas.width != w)
+                        canvas.width = w;
+                    if (canvas.height != h)
+                        canvas.height = h;
+                    if (typeof canvas.style != "undefined") {
+                        canvas.style.removeProperty("width");
+                        canvas.style.removeProperty("height")
+                    }
+                } else {
+                    if (canvas.width != wNative)
+                        canvas.width = wNative;
+                    if (canvas.height != hNative)
+                        canvas.height = hNative;
+                    if (typeof canvas.style != "undefined") {
+                        if (w != wNative || h != hNative) {
+                            canvas.style.setProperty("width", w + "px", "important");
+                            canvas.style.setProperty("height", h + "px", "important")
+                        } else {
+                            canvas.style.removeProperty("width");
+                            canvas.style.removeProperty("height")
+                        }
+                    }
+                }
+
+                */
     },
     wgetRequests: {},
     nextWgetRequestHandle: 0,
@@ -8431,7 +8458,11 @@ function _JSEvents_resizeCanvasForFullscreen(target, strategy) {
         target.style.imageRendering = "crisp-edges";
         target.style.imageRendering = "pixelated"
     }
-    var dpiScale = strategy.canvasResolutionScaleMode == 2 ? devicePixelRatio : 1;
+
+    //Vladislav Khorev fix device pixel ratio
+    //var dpiScale = strategy.canvasResolutionScaleMode == 2 ? devicePixelRatio : 1;
+    var dpiScale = 1; //force for SberBox
+
     if (strategy.canvasResolutionScaleMode != 0) {
         var newWidth = cssWidth * dpiScale | 0;
         var newHeight = cssHeight * dpiScale | 0;
@@ -8662,7 +8693,10 @@ function _emscripten_get_compiler_setting(name) {
 }
 
 function _emscripten_get_device_pixel_ratio() {
-    return devicePixelRatio
+    //eturn devicePixelRatio
+
+    //Vladislav Khorev fix device pixel ratio
+    return 1; //force for SberBox
 }
 
 function _emscripten_get_element_css_size(target, width, height) {
@@ -11886,6 +11920,9 @@ function registerKeyEventCallback(target, userData, useCapture, callbackfunc, ev
         JSEvents.keyEvent = _malloc(164);
     var keyEventHandlerFunc = function(e) {
 
+        //console.log("KeyHandler, " + e.key + " / " + e.code + " / " + e.char);
+
+
         //vladislav khorev
 
         var keyEventData = JSEvents.keyEvent;
@@ -11919,7 +11956,7 @@ function registerKeyEventCallback(target, userData, useCapture, callbackfunc, ev
         handlerFunc: keyEventHandlerFunc,
         useCapture: useCapture
     };
-    JSEvents.registerOrRemoveHandler(eventHandler)
+    JSEvents.registerOrRemoveHandler(eventHandler);
     if (eventTypeString == "keydown") {
         extraKeyHandler_keydown = eventHandler;
     }
@@ -13465,8 +13502,13 @@ Object.defineProperties(FSNode.prototype, {
         }
     }
 });
+
+//vladislav khorev
+//console.log("FS.ErrnoError");
+//console.log(FS.ErrnoError);
 FS.FSNode = FSNode;
 FS.staticInit();
+console.log("FS.staticInit(); after");
 Module["FS_createPath"] = FS.createPath;
 Module["FS_createDataFile"] = FS.createDataFile;
 Module["FS_createPreloadedFile"] = FS.createPreloadedFile;
@@ -14562,7 +14604,7 @@ function run(args) {
         postRun()
     }
     if (Module["setStatus"]) {
-        Module["setStatus"]("Running...");
+        Module["setStatus"]("Запуск...");
         setTimeout(function() {
             setTimeout(function() {
                 Module["setStatus"]("")

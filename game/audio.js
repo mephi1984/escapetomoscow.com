@@ -69,6 +69,9 @@ function createSound(uri, cb) {
 
 }
 
+console.log("Ololo audio.js 2")
+
+var music_stage_preload = "music_Runaway02"
 
 var audio_Runaway_01 = null;
 
@@ -139,7 +142,60 @@ var audio_sound_teaser_drum = null;
 
 var audio_sound_teaser_vibro = null;
 
+var currentPlaySong = null;
 
+
+
+
+function loopifyWithFadeInAsync(audioFileName) {
+    return new Promise((resolve, reject) => {
+
+        loopifyWithFadeIn(audioFileName, (err, loop) => {
+
+            if (err) {
+                console.warn(err);
+                reject(err);
+            }
+
+            resolve(loop);
+        });
+
+    });
+}
+
+
+function loopifyAsync(audioFileName) {
+    return new Promise((resolve, reject) => {
+
+        loopify(audioFileName, (err, loop) => {
+
+            if (err) {
+                console.warn(err);
+                reject(err);
+            }
+
+            resolve(loop);
+        });
+
+    });
+}
+
+
+function createSoundAsync(audioFileName) {
+    return new Promise((resolve, reject) => {
+
+        createSound(audioFileName, (err, loop) => {
+
+            if (err) {
+                console.warn(err);
+                reject(err);
+            }
+
+            resolve(loop);
+        });
+
+    });
+}
 
 loopifyWithFadeIn("audio/music/Runaway_01 (Loop).ogg", function(err, loop) {
 
@@ -149,7 +205,7 @@ loopifyWithFadeIn("audio/music/Runaway_01 (Loop).ogg", function(err, loop) {
 
     audio_Runaway_01 = loop;
 });
-
+/*
 loopifyWithFadeIn("audio/music/Runaway_02 (Loop).ogg", function(err, loop) {
 
     if (err) {
@@ -286,6 +342,7 @@ loopifyWithFadeIn("audio/music/Runaway_16 (Loop).ogg", function(err, loop) {
     audio_Runaway_16 = loop;
 });
 
+
 loopifyWithFadeIn("audio/ambience/airplane_1ambience_before_landing_loop.ogg", function(err, loop) {
 
     if (err) {
@@ -294,7 +351,7 @@ loopifyWithFadeIn("audio/ambience/airplane_1ambience_before_landing_loop.ogg", f
 
     audio_ambience_airplane_1ambience_before_landing_loop = loop;
 });
-
+*/
 createSound("audio/sound/seatbelt.ogg", function(err, sound) {
 
     if (err) {
@@ -312,7 +369,7 @@ createSound("audio/sound/aeroexpress.ogg", function(err, sound) {
 
     audio_sound_aeroexpress = sound;
 });
-
+/*
 createSound("audio/ambience/airplane_2landed_shortened.ogg", function(err, sound) {
 
     if (err) {
@@ -443,7 +500,7 @@ createSound("audio/ambience/kazakhstan_after_takeoff_ambience.ogg", function(err
 });
 
 
-
+*/
 
 createSound("audio/sound/teaser/546621__jose-danielms__cinematic-drum-sub.ogg", function(err, sound) {
 
@@ -630,22 +687,58 @@ function playRunaway01() {
 
 function playRunaway02() {
     stopAllMusic();
-    audio_Runaway_02.play();
+    /*
+        if (!audio_Runaway_02) {
+
+            audio_Runaway_02 = await loopifyWithFadeInAsync("audio/music/Runaway_02 (Loop).ogg");
+        }*/
+
+    if (audio_Runaway_02) {
+        audio_Runaway_02.play();
+    } else {
+        currentPlaySong = "Runaway02";
+    }
 }
 
 function playRunaway03() {
     stopAllMusic();
-    audio_Runaway_03.play();
+
+    /*
+    if (!audio_Runaway_03) {
+
+        audio_Runaway_03 = await loopifyWithFadeInAsync("audio/music/Runaway_03 (Loop).ogg");
+    }*/
+
+    if (audio_Runaway_03) {
+        audio_Runaway_03.play();
+    } else {
+        currentPlaySong = "Runaway03";
+    }
 }
 
 function playRunaway04() {
     stopAllMusic();
-    audio_Runaway_04.play();
+    /*
+        if (!audio_Runaway_04) {
+
+            audio_Runaway_04 = await loopifyWithFadeInAsync("audio/music/Runaway_04 (Loop).ogg");
+        }*/
+
+    if (audio_Runaway_04) {
+        audio_Runaway_04.play();
+    } else {
+        currentPlaySong = "Runaway04";
+    }
 }
 
 function playRunaway05() {
     stopAllMusic();
-    audio_Runaway_05.play();
+
+    if (audio_Runaway_05) {
+        audio_Runaway_05.play();
+    } else {
+        currentPlaySong = "Runaway05";
+    }
 }
 
 
@@ -656,11 +749,20 @@ function playCrossFadeRunaway06() {
     if (audio_Runaway_05) {
         audio_Runaway_05.stop();
     }
-    audio_Runaway_06.play();
+    if (audio_Runaway_06) {
+        audio_Runaway_06.play();
+    } else {
+        currentPlaySong = "Runaway06";
+    }
 }
 
 function playRunaway07() {
-    audio_Runaway_07.play();
+
+    if (audio_Runaway_07) {
+        audio_Runaway_07.play();
+    } else {
+        currentPlaySong = "Runaway07";
+    }
 }
 
 
@@ -673,141 +775,778 @@ function stopRunaway07() {
 
 function playRunaway08() {
     stopAllMusic();
-    audio_Runaway_08.play();
+
+    /*
+    if (!audio_Runaway_08) {
+
+        audio_Runaway_08 = await loopifyWithFadeInAsync("audio/music/Runaway_08 (Loop).ogg");
+    }
+*/
+
+    if (audio_Runaway_08) {
+        audio_Runaway_08.play();
+    } else {
+        currentPlaySong = "Runaway08";
+    }
 }
 
 
 function playRunaway09() {
     stopAllMusic();
-    audio_Runaway_09.play();
+    if (audio_Runaway_09) {
+        audio_Runaway_09.play();
+    } else {
+        currentPlaySong = "Runaway09";
+    }
 }
 
 
 function playRunaway10() {
     stopAllMusic();
-    audio_Runaway_10.play();
+    if (audio_Runaway_10) {
+        audio_Runaway_10.play();
+    }
 }
 
 function playRunaway11() {
     stopAllMusic();
-    audio_Runaway_11.play();
+    if (audio_Runaway_11) {
+        audio_Runaway_11.play();
+    }
 }
 
 function playRunaway12() {
     stopAllMusic();
-    audio_Runaway_12.play();
+    if (audio_Runaway_12) {
+        audio_Runaway_12.play();
+    }
 }
 
 function playRunaway13() {
     stopAllMusic();
-    audio_Runaway_13.play();
+    if (audio_Runaway_13) {
+        audio_Runaway_13.play();
+    }
 }
 
 function playRunaway14() {
     stopAllMusic();
-    audio_Runaway_14.play();
+    if (audio_Runaway_14) {
+        audio_Runaway_14.play();
+    }
 }
 
 function playRunaway15() {
     stopAllMusic();
-    audio_Runaway_15.play();
+    if (audio_Runaway_15) {
+        audio_Runaway_15.play();
+    }
 }
 
 
 function playRunaway16() {
     stopAllMusic();
-    audio_Runaway_16.play();
+    if (audio_Runaway_16) {
+        audio_Runaway_16.play();
+    }
 }
 
 function play_airplane_1ambience_before_landing_loop() {
     stopAllMusicExceptRunaway07();
-    audio_ambience_airplane_1ambience_before_landing_loop.play();
+
+    if (audio_ambience_airplane_1ambience_before_landing_loop) {
+        audio_ambience_airplane_1ambience_before_landing_loop.play();
+    } else {
+        currentPlaySong == "audio_ambience_airplane_1ambience_before_landing_loop";
+    }
 }
 
 function play_sound_seatbelt() {
-    audio_sound_seatbelt.play();
+    if (audio_sound_seatbelt) {
+        audio_sound_seatbelt.play();
+    }
 }
 
 function play_airplane_2landed_shortened() {
     stopAllMusicExceptRunaway07();
-    audio_ambience_airplane_2landed_shortened.play();
+
+    if (audio_ambience_airplane_2landed_shortened) {
+        audio_ambience_airplane_2landed_shortened.play();
+    } else {
+        currentPlaySong == "audio_ambience_airplane_2landed_shortened";
+    }
 }
 
 
 function play_audio_ambience_airplane_3after_landing_loop(delay = 2.5) {
     stopAllMusicExceptRunaway07();
-    audio_ambience_airplane_3after_landing_loop.play(delay);
+
+    if (audio_ambience_airplane_3after_landing_loop) {
+        audio_ambience_airplane_3after_landing_loop.play(delay);
+    } else {
+        currentPlaySong == "audio_ambience_airplane_3after_landing_loop";
+    }
 }
 
 
 function play_audio_ambience_airplane_stopped_loop() {
     stopAllMusic();
-    audio_ambience_airplane_stopped_loop.play();
+    if (audio_ambience_airplane_stopped_loop) {
+        audio_ambience_airplane_stopped_loop.play();
+    }
 }
 
 function play_sound_aeroexpress() {
-    audio_sound_aeroexpress.play();
+    if (audio_sound_aeroexpress) {
+        audio_sound_aeroexpress.play();
+    }
 }
 
 
 function play_audio_ambience_train() {
     stopAllMusic();
-    audio_ambience_train.play();
+    if (audio_ambience_train) {
+        audio_ambience_train.play();
+    }
 }
 
 function play_ambience_metro_station() {
     stopAllMusic();
-    ambience_metro_station.play();
+    if (ambience_metro_station) {
+        ambience_metro_station.play();
+    }
 }
 
 function play_ambience_metro_loop_before_train_depart() {
     stopAllMusic();
-    ambience_metro_loop_before_train_depart.play();
+    if (ambience_metro_loop_before_train_depart) {
+        ambience_metro_loop_before_train_depart.play();
+    }
 }
 
 
 function play_ambience_metro_doors_closing() {
     stopAllMusic();
-    ambience_metro_doors_closing.play();
+    if (ambience_metro_doors_closing) {
+        ambience_metro_doors_closing.play();
+    }
 }
 
 
 function play_ambience_metro_train_loop(delay) {
-    ambience_metro_train_loop.play(delay);
+    if (ambience_metro_train_loop) {
+        ambience_metro_train_loop.play(delay);
+    }
 }
 
 
 function play_ambience_metro_arrived() {
     stopAllMusic();
-    ambience_metro_arrived.play();
+
+    if (ambience_metro_arrived) {
+        ambience_metro_arrived.play();
+    }
 }
 
 
 function play_ambience_metro_loop_after_arrival(delay = 2.5) {
-    ambience_metro_loop_after_arrival.play(delay);
+    if (ambience_metro_loop_after_arrival) {
+        ambience_metro_loop_after_arrival.play(delay);
+    }
 }
 
 function play_ambience_kazakhstan_airplane_before_takeoff_ambience() {
     stopAllMusic();
-    ambience_kazakhstan_airplane_before_takeoff_ambience.play();
+    if (ambience_kazakhstan_airplane_before_takeoff_ambience) {
+        ambience_kazakhstan_airplane_before_takeoff_ambience.play();
+    }
 }
 
 
 function play_ambience_takeoff_kazakhstan() {
     stopAllMusic();
-    ambience_takeoff_kazakhstan.play();
+    if (ambience_takeoff_kazakhstan) {
+        ambience_takeoff_kazakhstan.play();
+    }
 }
 
 
 function play_ambience_kazakhstan_after_takeoff_ambience(delay = 2.5) {
-    ambience_kazakhstan_after_takeoff_ambience.play(delay);
+
+    if (ambience_kazakhstan_after_takeoff_ambience) {
+        ambience_kazakhstan_after_takeoff_ambience.play(delay);
+    }
 }
 
 
 function play_sound_teaser_drum() {
-    audio_sound_teaser_drum.play();
+    if (audio_sound_teaser_drum) {
+        audio_sound_teaser_drum.play();
+    }
 }
 
 function play_sound_teaser_vibro() {
-    audio_sound_teaser_vibro.play();
+    if (audio_sound_teaser_vibro) {
+        audio_sound_teaser_vibro.play();
+    }
+}
+
+function clearAllMusicExceptPreload() {
+    if (music_stage_preload != "music_Runaway02") {
+        if (audio_Runaway_02) {
+            audio_Runaway_02.stop();
+            audio_Runaway_02 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway03") &&
+        (music_stage_preload != "music_Runaway03_Runaway16") &&
+        (music_stage_preload != "music_Runaway03_Runaway04") &&
+        (music_stage_preload != "music_Runaway11_Runaway03") &&
+        (music_stage_preload != "music_Runaway03_Runaway12")) {
+        if (audio_Runaway_03) {
+            audio_Runaway_03.stop();
+            audio_Runaway_03 = null;
+        }
+    }
+    if ((music_stage_preload != "music_Runaway03_Runaway04") &&
+        (music_stage_preload != "music_Runaway04_airplane_sounds")) {
+        if (audio_Runaway_04) {
+            audio_Runaway_04.stop();
+            audio_Runaway_04 = null;
+        }
+    }
+
+
+    if ((music_stage_preload != "music_Runaway04_airplane_sounds") &&
+        (music_stage_preload != "music_airplane_sounds_Runaway05") &&
+        (music_stage_preload != "music_Runaway06_airplane2") &&
+        (music_stage_preload != "music_airplane2_Runaway07") &&
+        (music_stage_preload != "music_airplane2_Runaway08")) {
+        if (audio_ambience_airplane_1ambience_before_landing_loop) {
+            audio_ambience_airplane_1ambience_before_landing_loop.stop();
+            audio_ambience_airplane_1ambience_before_landing_loop = null;
+        }
+
+        if (audio_ambience_airplane_2landed_shortened) {
+            audio_ambience_airplane_2landed_shortened.stop();
+            audio_ambience_airplane_1ambience_before_landing_loop = null;
+        }
+
+        if (audio_ambience_airplane_3after_landing_loop) {
+            audio_ambience_airplane_3after_landing_loop.stop();
+            audio_ambience_airplane_1ambience_before_landing_loop = null;
+        }
+    }
+
+
+    if ((music_stage_preload != "music_airplane_sounds_Runaway05") &&
+        (music_stage_preload != "music_Runaway05_Runaway06")) {
+        if (audio_Runaway_05) {
+            audio_Runaway_05.stop();
+            audio_Runaway_05 = null;
+        }
+    }
+
+
+    if ((music_stage_preload != "music_Runaway05_Runaway06") &&
+        (music_stage_preload != "music_Runaway06_Runaway16") &&
+        (music_stage_preload != "music_Runaway06_airplane2")) {
+        if (audio_Runaway_06) {
+            audio_Runaway_06.stop();
+            audio_Runaway_06 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_airplane2_Runaway07") &&
+        (music_stage_preload != "music_airplane2_Runaway08")) {
+        if (audio_ambience_airplane_stopped_loop) {
+            audio_ambience_airplane_stopped_loop.stop();
+            audio_ambience_airplane_stopped_loop = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_airplane2_Runaway07") &&
+        (music_stage_preload != "music_airplane3_Runaway07")) {
+        if (audio_Runaway_07) {
+            audio_Runaway_07.stop();
+            audio_Runaway_07 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_airplane2_Runaway08") &&
+        (music_stage_preload != "music_Runaway08_train") &&
+        (music_stage_preload != "music_Runaway08")) {
+        if (audio_Runaway_08) {
+            audio_Runaway_08.stop();
+            audio_Runaway_08 = null;
+        }
+    }
+
+
+    if ((music_stage_preload != "music_Runaway08_train") &&
+        (music_stage_preload != "music_train_metro")) {
+        if (audio_ambience_train) {
+            audio_ambience_train.stop();
+            audio_ambience_train = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_train_metro") &&
+        (music_stage_preload != "music_metro_Runaway09")) {
+        if (ambience_metro_station) {
+            ambience_metro_station.stop();
+            ambience_metro_station = null;
+        }
+
+        if (ambience_metro_loop_before_train_depart) {
+            ambience_metro_loop_before_train_depart.stop();
+            ambience_metro_loop_before_train_depart = null;
+        }
+
+        if (ambience_metro_doors_closing) {
+            ambience_metro_doors_closing.stop();
+            ambience_metro_doors_closing = null;
+        }
+
+        if (ambience_metro_train_loop) {
+            ambience_metro_train_loop.stop();
+            ambience_metro_train_loop = null;
+        }
+
+        if (ambience_metro_arrived) {
+            ambience_metro_arrived.stop();
+            ambience_metro_arrived = null;
+        }
+
+        if (ambience_metro_loop_after_arrival) {
+            ambience_metro_loop_after_arrival.stop();
+            ambience_metro_loop_after_arrival = null;
+        }
+    }
+
+
+    if ((music_stage_preload != "music_metro_Runaway09") &&
+        (music_stage_preload != "music_Runaway09_Runaway10")) {
+        if (audio_Runaway_09) {
+            audio_Runaway_09.stop();
+            audio_Runaway_09 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway09_Runaway10") &&
+        (music_stage_preload != "music_Runaway10_Runaway11")) {
+        if (audio_Runaway_10) {
+            audio_Runaway_10.stop();
+            audio_Runaway_10 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway10_Runaway11") &&
+        (music_stage_preload != "music_Runaway11_Runaway03") &&
+        (music_stage_preload != "music_Runaway16_Runaway11")) {
+        if (audio_Runaway_11) {
+            audio_Runaway_11.stop();
+            audio_Runaway_11 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway03_Runaway12") &&
+        (music_stage_preload != "music_Runaway12_Runaway13")) {
+        if (audio_Runaway_12) {
+            audio_Runaway_12.stop();
+            audio_Runaway_12 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway12_Runaway13") &&
+        (music_stage_preload != "music_Runaway13_Runaway14") &&
+        (music_stage_preload != "music_Runaway13_Runaway16")) {
+        if (audio_Runaway_13) {
+            audio_Runaway_13.stop();
+            audio_Runaway_13 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway13_Runaway14") &&
+        (music_stage_preload != "music_Runaway14_Runaway15")) {
+        if (audio_Runaway_14) {
+            audio_Runaway_14.stop();
+            audio_Runaway_14 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway14_Runaway15") &&
+        (music_stage_preload != "music_Runaway15_airplane3")) {
+        if (audio_Runaway_15) {
+            audio_Runaway_15.stop();
+            audio_Runaway_15 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway03_Runaway16") &&
+        (music_stage_preload != "music_Runaway06_Runaway16") &&
+        (music_stage_preload != "music_Runaway13_Runaway16") &&
+        (music_stage_preload != "music_Runaway16_Runaway11")) {
+        if (audio_Runaway_16) {
+            audio_Runaway_16.stop();
+            audio_Runaway_16 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway15_airplane3") &&
+        (music_stage_preload != "music_airplane3_Runaway07")) {
+
+        if (ambience_kazakhstan_airplane_before_takeoff_ambience) {
+            ambience_kazakhstan_airplane_before_takeoff_ambience.stop();
+            ambience_kazakhstan_airplane_before_takeoff_ambience = null;
+        }
+
+        if (ambience_takeoff_kazakhstan) {
+            ambience_takeoff_kazakhstan.stop();
+            ambience_takeoff_kazakhstan = null;
+        }
+
+        if (ambience_kazakhstan_after_takeoff_ambience) {
+            ambience_kazakhstan_after_takeoff_ambience.stop();
+            ambience_kazakhstan_after_takeoff_ambience = null;
+        }
+    }
+
+}
+
+//-----------------------------------
+
+function PreloadRequiredTracksAsync(callback1, callback2, callback3) {
+    PreloadRequiredTracks(callback1, callback2, callback3);
+}
+
+//function PreloadRequiredTracks(callback1, callback2, callback3) {}
+
+
+async function PreloadRequiredTracks(callback1, callback2, callback3) {
+
+    if (music_stage_preload == "music_Runaway02") {
+        if (!audio_Runaway_02) {
+
+            var audio = await loopifyWithFadeInAsync("audio/music/Runaway_02 (Loop).ogg");
+
+            if (audio_Runaway_02 == null) {
+
+                audio_Runaway_02 = audio;
+
+                if (currentPlaySong == "Runaway02") {
+                    playRunaway02();
+                }
+            }
+
+        }
+    }
+
+    if ((music_stage_preload == "music_Runaway03") ||
+        (music_stage_preload == "music_Runaway03_Runaway16") ||
+        (music_stage_preload == "music_Runaway03_Runaway04") ||
+        (music_stage_preload == "music_Runaway11_Runaway03") ||
+        (music_stage_preload == "music_Runaway03_Runaway12")) {
+        if (!audio_Runaway_03) {
+
+            var audio = await loopifyWithFadeInAsync("audio/music/Runaway_03 (Loop).ogg");
+
+            if (audio_Runaway_03 == null) {
+
+                audio_Runaway_03 = audio;
+
+                if (currentPlaySong == "Runaway03") {
+                    playRunaway03();
+                }
+            }
+
+
+        }
+    }
+    if ((music_stage_preload == "music_Runaway03_Runaway04") ||
+        (music_stage_preload == "music_Runaway04_airplane_sounds")) {
+        if (!audio_Runaway_04) {
+            var audio = await loopifyWithFadeInAsync("audio/music/Runaway_04.ogg");
+
+            if (audio_Runaway_04 == null) {
+
+                audio_Runaway_04 = audio;
+
+                if (currentPlaySong == "Runaway04") {
+                    playRunaway04();
+                }
+            }
+
+
+        }
+    }
+
+
+    if ((music_stage_preload == "music_Runaway04_airplane_sounds") ||
+        (music_stage_preload == "music_airplane_sounds_Runaway05") ||
+        (music_stage_preload == "music_Runaway06_airplane2") ||
+        (music_stage_preload == "music_airplane2_Runaway07") ||
+        (music_stage_preload == "music_airplane2_Runaway08")) {
+
+
+        if (!audio_ambience_airplane_1ambience_before_landing_loop) {
+            var audio = await loopifyWithFadeInAsync("audio/ambience/airplane_1ambience_before_landing_loop.ogg");
+
+            if (audio_ambience_airplane_1ambience_before_landing_loop == null) {
+                audio_ambience_airplane_1ambience_before_landing_loop = audio;
+                if (currentPlaySong == "audio_ambience_airplane_1ambience_before_landing_loop") {
+                    play_airplane_1ambience_before_landing_loop();
+                }
+            }
+        }
+
+        /*
+                if (!audio_ambience_airplane_2landed_shortened) {
+                    var audio = await createSoundAsync("audio/ambience/airplane_2landed_shortened.ogg");
+                    if (audio_ambience_airplane_2landed_shortened == null) {
+                        audio_ambience_airplane_2landed_shortened = audio;
+                        if (currentPlaySong == "audio_ambience_airplane_2landed_shortened") {
+                            play_airplane_2landed_shortened();
+                        }
+                    }
+                }
+
+                if (!audio_ambience_airplane_3after_landing_loop) {
+                    var audio = await loopifyAsync("audio/ambience/airplane_3after_landing_loop.ogg");
+                    if (audio_ambience_airplane_3after_landing_loop == null) {
+                        audio_ambience_airplane_3after_landing_loop = audio;
+                        if (currentPlaySong == "audio_ambience_airplane_3after_landing_loop") {
+                            play_audio_ambience_airplane_3after_landing_loop();
+                        }
+                    }
+                }*/
+    }
+
+
+    if ((music_stage_preload == "music_airplane_sounds_Runaway05") ||
+        (music_stage_preload == "music_Runaway05_Runaway06")) {
+
+
+        if (!audio_Runaway_05) {
+            var audio = await loopifyWithFadeInAsync("audio/music/Runaway_05 (Loop).ogg");
+
+            if (audio_Runaway_05 == null) {
+                audio_Runaway_05 = audio;
+
+                if (currentPlaySong == "Runaway05") {
+                    playRunaway05();
+                }
+            }
+        }
+    }
+
+
+    if ((music_stage_preload == "music_Runaway05_Runaway06") ||
+        (music_stage_preload == "music_Runaway06_Runaway16") ||
+        (music_stage_preload == "music_Runaway06_airplane2")) {
+
+        if (!audio_Runaway_06) {
+            var audio = await loopifyWithFadeInAsync("audio/music/Runaway_06 (Loop).ogg");
+
+            if (audio_Runaway_06 == null) {
+                audio_Runaway_06 = audio;
+
+                if (currentPlaySong == "Runaway06") {
+                    playCrossFadeRunaway06();
+                }
+            }
+        }
+    }
+    /*
+            if ((music_stage_preload != "music_airplane2_Runaway07") && 
+                (music_stage_preload != "music_airplane2_Runaway08"))
+            {
+                if (audio_ambience_airplane_stopped_loop) {
+                    audio_ambience_airplane_stopped_loop.stop();
+                    audio_ambience_airplane_stopped_loop = null;
+                }
+            }
+
+            if ((music_stage_preload != "music_airplane2_Runaway07") && 
+                (music_stage_preload != "music_airplane3_Runaway07"))
+            {
+                if (audio_Runaway_07) {
+                    audio_Runaway_07.stop();
+                    audio_Runaway_07 = null;
+                }
+            }
+
+            */
+
+    if ((music_stage_preload == "music_airplane2_Runaway08") ||
+        (music_stage_preload == "music_Runaway08_train") ||
+        (music_stage_preload == "music_Runaway08")) {
+
+        if (!audio_Runaway_08) {
+            var audio = await loopifyWithFadeInAsync("audio/music/Runaway_08 (Loop).ogg");
+
+            if (audio_Runaway_08 == null) {
+                audio_Runaway_08 = audio;
+
+                if (currentPlaySong == "Runaway08") {
+                    playRunaway08();
+                }
+            }
+        }
+    }
+
+
+    /*
+
+    if ((music_stage_preload != "music_Runaway08_train") && 
+        (music_stage_preload != "music_train_metro"))
+    {
+        if (audio_ambience_train) {
+            audio_ambience_train.stop();
+            audio_ambience_train = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_train_metro") && 
+        (music_stage_preload != "music_metro_Runaway09"))
+    {
+        if (ambience_metro_station) {
+            ambience_metro_station.stop();
+            ambience_metro_station = null;
+        }
+
+        if (ambience_metro_loop_before_train_depart) {
+            ambience_metro_loop_before_train_depart.stop();
+            ambience_metro_loop_before_train_depart = null;
+        }
+        
+        if (ambience_metro_doors_closing) {
+            ambience_metro_doors_closing.stop();
+            ambience_metro_doors_closing = null;
+        }
+        
+        if (ambience_metro_train_loop) {
+            ambience_metro_train_loop.stop();
+            ambience_metro_train_loop = null;
+        }
+        
+        if (ambience_metro_arrived) {
+            ambience_metro_arrived.stop();
+            ambience_metro_arrived = null;
+        }
+        
+        if (ambience_metro_loop_after_arrival) {
+            ambience_metro_loop_after_arrival.stop();
+            ambience_metro_loop_after_arrival = null;
+        }
+    }
+
+
+    if ((music_stage_preload != "music_metro_Runaway09") && 
+        (music_stage_preload != "music_Runaway09_Runaway10"))
+    {
+        if (audio_Runaway_09) {
+            audio_Runaway_09.stop();
+            audio_Runaway_09 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway09_Runaway10") && 
+        (music_stage_preload != "music_Runaway10_Runaway11"))
+    {
+        if (audio_Runaway_10) {
+            audio_Runaway_10.stop();
+            audio_Runaway_10 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway10_Runaway11") && 
+        (music_stage_preload != "music_Runaway11_Runaway03") && 
+        (music_stage_preload != "music_Runaway16_Runaway11"))
+    {
+        if (audio_Runaway_11) {
+            audio_Runaway_11.stop();
+            audio_Runaway_11 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway03_Runaway12") && 
+        (music_stage_preload != "music_Runaway12_Runaway13"))
+    {
+        if (audio_Runaway_12) {
+            audio_Runaway_12.stop();
+            audio_Runaway_12 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway12_Runaway13") && 
+        (music_stage_preload != "music_Runaway13_Runaway14") && 
+        (music_stage_preload != "music_Runaway13_Runaway16"))
+    {
+        if (audio_Runaway_13) {
+            audio_Runaway_13.stop();
+            audio_Runaway_13 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway13_Runaway14") && 
+        (music_stage_preload != "music_Runaway14_Runaway15"))
+    {
+        if (audio_Runaway_14) {
+            audio_Runaway_14.stop();
+            audio_Runaway_14 = null;
+        }
+    }
+
+    if ((music_stage_preload != "music_Runaway14_Runaway15") && 
+        (music_stage_preload != "music_Runaway15_airplane3"))
+    {
+        if (audio_Runaway_15) {
+            audio_Runaway_15.stop();
+            audio_Runaway_15 = null;
+        }
+    }*/
+
+    if ((music_stage_preload == "music_Runaway03_Runaway16") ||
+        (music_stage_preload == "music_Runaway06_Runaway16") ||
+        (music_stage_preload == "music_Runaway13_Runaway16") ||
+        (music_stage_preload == "music_Runaway16_Runaway11")) {
+        if (!audio_Runaway_16) {
+            audio_Runaway_16 = await loopifyWithFadeInAsync("audio/music/Runaway_16 (Loop).ogg");
+        }
+    }
+    /*
+
+    if ((music_stage_preload != "music_Runaway15_airplane3") && 
+        (music_stage_preload != "music_airplane3_Runaway07"))
+    {
+
+        if (ambience_kazakhstan_airplane_before_takeoff_ambience) {
+            ambience_kazakhstan_airplane_before_takeoff_ambience.stop();
+            ambience_kazakhstan_airplane_before_takeoff_ambience = null;
+        }
+
+        if (ambience_takeoff_kazakhstan) {
+            ambience_takeoff_kazakhstan.stop();
+            ambience_takeoff_kazakhstan = null;
+        }
+
+        if (ambience_kazakhstan_after_takeoff_ambience) {
+            ambience_kazakhstan_after_takeoff_ambience.stop();
+            ambience_kazakhstan_after_takeoff_ambience = null;
+        }
+    }*/
+
+    if (callback1) {
+        await callback1();
+    }
+
+    if (callback2) {
+        await callback2();
+    }
+
+    if (callback3) {
+        await callback3();
+    }
 }

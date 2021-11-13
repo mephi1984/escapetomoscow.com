@@ -219,6 +219,22 @@
     <script src="https://unpkg.com/@sberdevices/assistant-client@3.4.2/umd/assistant.min.js"></script>
 
     <script>
+        if (typeof console != "undefined")
+            if (typeof console.log != 'undefined')
+                console.olog = console.log;
+            else
+                console.olog = function() {};
+        console.log = function(message) {
+            console.olog(message);
+            var menu = document.getElementById('ContextMenu');
+            if (!message.includes("Preparing") && (!message.includes("import")) && (!message.includes("syncfs"))) {
+                menu.innerText += (message + '\n');
+            }
+        };
+        console.error = console.debug = console.info = console.log;
+
+
+
         function showReloadButton() {
             document.getElementById('reloadButtonArea').style.display = 'block';
         }
@@ -279,7 +295,7 @@
 
     <div id="ContextContainer">
         <a id="ContextButton">&#8801;</a><br />
-        <div id="ContextMenu" style="display: none;">
+        <div id="ContextMenu" style="display: block;">
             <input id="ID_SavegamesImport" type="file" onchange="onSavegamesImport(this)" accept="application/zip" style=display:none></input>
             <a href="javascript:document.getElementById('ID_SavegamesImport').click();">Import saves</a><br />
             <a href="javascript:onSavegamesExport();">Export saves</a><br />
@@ -294,12 +310,14 @@
         </div>
     </div>
 
+
     <script type='text/javascript' src="thirdparty/loopify.js"></script>
     <script type='text/javascript' src="thirdparty/loopifyWithFadeIn.js"></script>
 
-    <!--
+
     <script type='text/javascript' src="audio.js"></script>
-  -->
+
+
     <script type='text/javascript'>
         document.getElementById('ContextButton').addEventListener('click', function(e) {
             var menu = document.getElementById('ContextMenu');
