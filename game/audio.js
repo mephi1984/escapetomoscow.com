@@ -696,9 +696,9 @@ function playRunaway02() {
 
     if (audio_Runaway_02) {
         audio_Runaway_02.play();
-    } else {
-        currentPlaySong = "Runaway02";
     }
+
+    currentPlaySong = "Runaway02";
 }
 
 function playRunaway03() {
@@ -712,9 +712,9 @@ function playRunaway03() {
 
     if (audio_Runaway_03) {
         audio_Runaway_03.play();
-    } else {
-        currentPlaySong = "Runaway03";
     }
+    currentPlaySong = "Runaway03";
+
 }
 
 function playRunaway04() {
@@ -727,9 +727,8 @@ function playRunaway04() {
 
     if (audio_Runaway_04) {
         audio_Runaway_04.play();
-    } else {
-        currentPlaySong = "Runaway04";
     }
+    currentPlaySong = "Runaway04";
 }
 
 function playRunaway05() {
@@ -737,9 +736,9 @@ function playRunaway05() {
 
     if (audio_Runaway_05) {
         audio_Runaway_05.play();
-    } else {
-        currentPlaySong = "Runaway05";
     }
+
+    currentPlaySong = "Runaway05";
 }
 
 
@@ -752,18 +751,17 @@ function playCrossFadeRunaway06() {
     }
     if (audio_Runaway_06) {
         audio_Runaway_06.play();
-    } else {
-        currentPlaySong = "Runaway06";
     }
+    currentPlaySong = "Runaway06";
 }
 
 function playRunaway07() {
 
     if (audio_Runaway_07) {
         audio_Runaway_07.play();
-    } else {
-        currentPlaySong = "Runaway07";
     }
+
+    currentPlaySong = "Runaway07";
 }
 
 
@@ -779,23 +777,18 @@ function playRunaway08() {
 
     if (audio_Runaway_08) {
         audio_Runaway_08.play();
-    } else {
-        currentPlaySong = "Runaway08";
     }
+
+    currentPlaySong = "Runaway08";
 }
 
 
 function playRunaway09() {
     stopAllMusic();
-    console.log("playRunaway09 called");
     if (audio_Runaway_09) {
-        console.log("playRunaway09 called, step 1");
         audio_Runaway_09.play();
-    } else {
-        console.log("playRunaway09 called, step 2");
-        currentPlaySong = "Runaway09";
     }
-    console.log("playRunaway09 called, step 3");
+    currentPlaySong = "Runaway09";
 }
 
 
@@ -803,54 +796,48 @@ function playRunaway10() {
     stopAllMusic();
     if (audio_Runaway_10) {
         audio_Runaway_10.play();
-    } else {
-        currentPlaySong = "Runaway10";
     }
+    currentPlaySong = "Runaway10";
 }
 
 function playRunaway11() {
     stopAllMusic();
     if (audio_Runaway_11) {
         audio_Runaway_11.play();
-    } else {
-        currentPlaySong = "Runaway11";
     }
+    currentPlaySong = "Runaway11";
 }
 
 function playRunaway12() {
     stopAllMusic();
     if (audio_Runaway_12) {
         audio_Runaway_12.play();
-    } else {
-        currentPlaySong = "Runaway12";
     }
+    currentPlaySong = "Runaway12";
 }
 
 function playRunaway13() {
     stopAllMusic();
     if (audio_Runaway_13) {
         audio_Runaway_13.play();
-    } else {
-        currentPlaySong = "Runaway13";
     }
+    currentPlaySong = "Runaway13";
 }
 
 function playRunaway14() {
     stopAllMusic();
     if (audio_Runaway_14) {
         audio_Runaway_14.play();
-    } else {
-        currentPlaySong = "Runaway14";
     }
+    currentPlaySong = "Runaway14";
 }
 
 function playRunaway15() {
     stopAllMusic();
     if (audio_Runaway_15) {
         audio_Runaway_15.play();
-    } else {
-        currentPlaySong = "Runaway15";
     }
+    currentPlaySong = "Runaway15";
 }
 
 
@@ -858,9 +845,8 @@ function playRunaway16() {
     stopAllMusic();
     if (audio_Runaway_16) {
         audio_Runaway_16.play();
-    } else {
-        currentPlaySong = "Runaway16";
     }
+    currentPlaySong = "Runaway16";
 }
 
 function play_airplane_1ambience_before_landing_loop() {
@@ -868,9 +854,8 @@ function play_airplane_1ambience_before_landing_loop() {
 
     if (audio_ambience_airplane_1ambience_before_landing_loop) {
         audio_ambience_airplane_1ambience_before_landing_loop.play();
-    } else {
-        currentPlaySong == "audio_ambience_airplane_1ambience_before_landing_loop";
     }
+    currentPlaySong == "audio_ambience_airplane_1ambience_before_landing_loop";
 }
 
 function play_sound_seatbelt() {
@@ -884,9 +869,8 @@ function play_airplane_2landed_shortened() {
 
     if (audio_ambience_airplane_2landed_shortened) {
         audio_ambience_airplane_2landed_shortened.play();
-    } else {
-        currentPlaySong == "audio_ambience_airplane_2landed_shortened";
     }
+    currentPlaySong == "audio_ambience_airplane_2landed_shortened";
 }
 
 
@@ -895,9 +879,8 @@ function play_audio_ambience_airplane_3after_landing_loop(delay = 2.5) {
 
     if (audio_ambience_airplane_3after_landing_loop) {
         audio_ambience_airplane_3after_landing_loop.play(delay);
-    } else {
-        currentPlaySong == "audio_ambience_airplane_3after_landing_loop";
     }
+    currentPlaySong == "audio_ambience_airplane_3after_landing_loop";
 }
 
 
@@ -905,9 +888,8 @@ function play_audio_ambience_airplane_stopped_loop() {
     stopAllMusic();
     if (audio_ambience_airplane_stopped_loop) {
         audio_ambience_airplane_stopped_loop.play();
-    } else {
-        currentPlaySong == "audio_ambience_airplane_stopped_loop";
     }
+    currentPlaySong == "audio_ambience_airplane_stopped_loop";
 }
 
 function play_sound_aeroexpress() {
@@ -921,27 +903,24 @@ function play_audio_ambience_train() {
     stopAllMusic();
     if (audio_ambience_train) {
         audio_ambience_train.play();
-    } else {
-        currentPlaySong == "audio_ambience_train";
     }
+    currentPlaySong == "audio_ambience_train";
 }
 
 function play_ambience_metro_station() {
     stopAllMusic();
     if (ambience_metro_station) {
         ambience_metro_station.play();
-    } else {
-        currentPlaySong == "ambience_metro_station";
     }
+    currentPlaySong == "ambience_metro_station";
 }
 
 function play_ambience_metro_loop_before_train_depart() {
     stopAllMusic();
     if (ambience_metro_loop_before_train_depart) {
         ambience_metro_loop_before_train_depart.play();
-    } else {
-        currentPlaySong == "ambience_metro_loop_before_train_depart";
     }
+    currentPlaySong == "ambience_metro_loop_before_train_depart";
 }
 
 
@@ -949,18 +928,16 @@ function play_ambience_metro_doors_closing() {
     stopAllMusic();
     if (ambience_metro_doors_closing) {
         ambience_metro_doors_closing.play();
-    } else {
-        currentPlaySong == "ambience_metro_doors_closing";
     }
+    currentPlaySong == "ambience_metro_doors_closing";
 }
 
 
 function play_ambience_metro_train_loop(delay) {
     if (ambience_metro_train_loop) {
         ambience_metro_train_loop.play(delay);
-    } else {
-        currentPlaySong == "ambience_metro_train_loop";
     }
+    currentPlaySong == "ambience_metro_train_loop";
 }
 
 
@@ -969,27 +946,24 @@ function play_ambience_metro_arrived() {
 
     if (ambience_metro_arrived) {
         ambience_metro_arrived.play();
-    } else {
-        currentPlaySong == "ambience_metro_arrived";
     }
+    currentPlaySong == "ambience_metro_arrived";
 }
 
 
 function play_ambience_metro_loop_after_arrival(delay = 2.5) {
     if (ambience_metro_loop_after_arrival) {
         ambience_metro_loop_after_arrival.play(delay);
-    } else {
-        currentPlaySong == "ambience_metro_loop_after_arrival";
     }
+    currentPlaySong == "ambience_metro_loop_after_arrival";
 }
 
 function play_ambience_kazakhstan_airplane_before_takeoff_ambience() {
     stopAllMusic();
     if (ambience_kazakhstan_airplane_before_takeoff_ambience) {
         ambience_kazakhstan_airplane_before_takeoff_ambience.play();
-    } else {
-        currentPlaySong == "ambience_kazakhstan_airplane_before_takeoff_ambience";
     }
+    currentPlaySong == "ambience_kazakhstan_airplane_before_takeoff_ambience";
 }
 
 
@@ -997,9 +971,8 @@ function play_ambience_takeoff_kazakhstan() {
     stopAllMusic();
     if (ambience_takeoff_kazakhstan) {
         ambience_takeoff_kazakhstan.play();
-    } else {
-        currentPlaySong == "ambience_takeoff_kazakhstan";
     }
+    currentPlaySong == "ambience_takeoff_kazakhstan";
 }
 
 
@@ -1007,9 +980,8 @@ function play_ambience_kazakhstan_after_takeoff_ambience(delay = 2.5) {
 
     if (ambience_kazakhstan_after_takeoff_ambience) {
         ambience_kazakhstan_after_takeoff_ambience.play(delay);
-    } else {
-        currentPlaySong == "ambience_kazakhstan_after_takeoff_ambience";
     }
+    currentPlaySong == "ambience_kazakhstan_after_takeoff_ambience";
 }
 
 
@@ -1933,14 +1905,14 @@ async function PreloadRequiredTracks(callback1, callback2, callback3) {
     }
 
     if (callback1) {
-        await callback1();
+        callback1();
     }
 
     if (callback2) {
-        await callback2();
+        callback2();
     }
 
     if (callback3) {
-        await callback3();
+        callback3();
     }
 }
