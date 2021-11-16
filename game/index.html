@@ -111,6 +111,8 @@
             top: 0;
             width: 100%;
             margin: auto;
+            display: none;
+            /* Change here if needed*/
         }
         
         #statusbar {
@@ -141,7 +143,8 @@
             left: 10px;
             top: 10px;
             color: white;
-            /*display: none;*/
+            /*display: none;
+             Change here if needed*/
         }
         
         #ContextButton {
@@ -573,7 +576,7 @@
             element: document.getElementById('horizontalProgressBar'),
             overlay: document.getElementById('horizontalProgressOverlay'),
             ratio: 4,
-            speed: 0.6,
+            speed: 1,
             frequency: 1,
             ease: 'ease'
         });
@@ -696,9 +699,15 @@
             // give control back to webui before running main
 
             window.setTimeout(function() {
-                Module.ccall('pyapp_runmain', '', [], [], {
-                    async: true
-                })
+
+                try {
+                    Module.ccall('pyapp_runmain', '', [], [], {
+                        async: true
+                    });
+                } catch (error) {
+                    Module.setStatus('Ошибка: ' + error.split('\n')[0] + ' (больше информации доступно в JavaScript console)');
+                    showReloadButton();
+                }
             }, 200); // smaller delay doesn't update the DOM, esp. on mobile
 
         }
@@ -758,6 +767,7 @@
                     text = text.replace('\n', '<br />', 'g');
                     element.innerHTML += text;
 
+                    /*
                     statusbar = document.getElementById('statusbar');
                     statusbar.hidden = false;
                     var print_date = new Date();
@@ -769,7 +779,7 @@
                             element.innerHTML = '';
                             statusbar.hidden = true;
                         }
-                    }, 3000);
+                    }, 3000);*/
                 };
             })(),
             printErr: function(text) {
@@ -823,10 +833,10 @@
 
                 if (text == '') {
                     statusElement.innerHTML = '<br />';
-                    document.getElementById('statusbar').hidden = true;
+                    //document.getElementById('statusbar').hidden = true;
                 } else {
                     statusElement.innerHTML = text + '<br />';
-                    document.getElementById('statusbar').hidden = false;
+                    //document.getElementById('statusbar').hidden = false;
                 }
             },
             totalDependencies: 0,
