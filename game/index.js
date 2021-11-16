@@ -44,10 +44,14 @@ Module["onRuntimeInitialized"] = function() {
             }
             total = Math.ceil(total * Module.expectedDataFileDownloads / num);
             if (Module["setStatus"])
-                Module["setStatus"]("Downloading Story... (" + loaded + "/" + total + ")")
+            //Vladislav Khorev translation
+            //Module["setStatus"]("Downloading Story... (" + loaded + "/" + total + ")")
+                Module["setStatus"]("Загрузка истории... (" + loaded + "/" + total + ")")
         } else if (!Module.dataFileDownloads) {
             if (Module["setStatus"])
-                Module["setStatus"]("Downloading Story...")
+            //Vladislav Khorev translation
+            //Module["setStatus"]("Downloading Story...")
+                Module["setStatus"]("Загрузка истории...")
         }
     };
     xhr.onerror = function(event) {
@@ -76,7 +80,8 @@ Module["onRuntimeInitialized"] = function() {
 };
 Module["quit"] = function() {
     console.log("RenPyWeb: quit");
-    Module["setStatus"]("Bye!");
+    //Vladislav Khorev translation
+    Module["setStatus"]("Завершение работы");
     if (noExitRuntime) {
         noExitRuntime = false;
         exit(0)
@@ -6807,7 +6812,8 @@ var Browser = {
         },
         updateStatus: function() {
             if (Module["setStatus"]) {
-                var message = Module["statusMessage"] || "Please wait...";
+                //Vladislav Khorev translation
+                var message = Module["statusMessage"] || "Подождите...";
                 var remaining = Browser.mainLoop.remainingBlockers;
                 var expected = Browser.mainLoop.expectedBlockers;
                 if (remaining) {
@@ -14562,7 +14568,8 @@ function run(args) {
         postRun()
     }
     if (Module["setStatus"]) {
-        Module["setStatus"]("Running...");
+        //Vladislav Khorev translation
+        Module["setStatus"]("Подготовка к запуску...");
         setTimeout(function() {
             setTimeout(function() {
                 Module["setStatus"]("")

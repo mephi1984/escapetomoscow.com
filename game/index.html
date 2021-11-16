@@ -173,19 +173,20 @@
         }
         
         #reloadButtonArea {
-            margin-top: 5%;
+            margin-top: 0;
             text-align: center;
             display: none;
         }
         
         .reloadButton {
             background-color: #4d7bbe;
-            border-radius: 4px;
+            border-radius: 20px;
             border: none;
             color: white;
             padding: 16px 32px;
             text-align: center;
-            font-size: 20px;
+            font-size: 400%;
+            font-family: sans-serif;
             margin: 4px 2px;
             opacity: 1.0;
             transition: 0.3s;
@@ -207,6 +208,69 @@
         .reloadButton:active {
             background-color: #1a3156;
             transform: scale(1.1);
+        }
+        
+        #presplash {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50%;
+            margin-top: -25%;
+        }
+        
+        #presplash_img {
+            display: block;
+            margin: auto;
+            height: 50%;
+            object-fit: contain;
+        }
+        
+        #presplash_status {
+            color: #87CAFF;
+            font-family: sans-serif;
+            font-size: 500%;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 5%;
+        }
+        
+        #horizontalProgress {
+            /* CHANGE THIS STYLES AS YOU WISH */
+            display: block;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            z-index: 1;
+        }
+        
+        #horizontalProgressBar {
+            /* DO NOT CHANGE STYLES IN THAT SELECTOR */
+            display: block;
+            top: 50%;
+            height: 8px;
+            left: 0px;
+            margin-top: -1px;
+            background: #3A95FF;
+            z-index: 999999;
+            transition: opacity 0.5s, width 0.5s;
+        }
+        
+        #horizontalProgressOverlay {
+            /* DO NOT CHANGE STYLES IN THAT SELECTOR */
+            display: block;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
+            z-index: 999998;
+            transition: opacity 1s;
+        }
+        
+        #horizontalProgressOverlay.show {
+            /* DO NOT CHANGE STYLES IN THAT SELECTOR */
+            left: 0%;
         }
     </style>
 
@@ -254,9 +318,17 @@
         <div id="statusbar">
             <div class="spinner" id='spinner'></div>
             <div style="margin-left: 50px;">
-                <div class="emscripten" id="status">Downloading...</div>
+                <div class="emscripten" id="status">Загрузка...</div>
                 <progress value="0" max="100" id="progress" hidden=1></progress>
             </div>
+        </div>
+    </div>
+    <div id="presplash">
+        <img id="presplash_img" />
+        <p id="presplash_status">Загрузка...</p>
+        <div id="horizontalProgress">
+            <div id="horizontalProgressBar"></div>
+            <div id="horizontalProgressOverlay"></div>
         </div>
         <div id="reloadButtonArea">
             <button class="reloadButton" onclick="clearCacheAndReload()">Перезапустить игру</button>
@@ -317,6 +389,196 @@
 
     <script type='text/javascript' src="audio.js"></script>
 
+    <script>
+        function preLoadImage() {
+            var img = new Image();
+            var imgUrl = 'web-presplash2.jpg';
+            img.onload = function() {
+                // this gets run once the image has finished downloading
+                document.getElementById('presplash_img').src = imgUrl;
+
+                div = document.getElementById('presplash');
+                c = document.getElementById('canvas');
+                c.parentElement.prepend(div);
+
+                div.style.display = 'block';
+
+                ProgressBar.start();
+            }
+            img.src = imgUrl; // this causes the image to get downloaded in the background
+        }
+
+
+        preLoadImage();
+    </script>
+
+    <script>
+        window.ProgressBar = (function(me) {
+
+            // SETTINGS
+
+            var ratio = 4;
+            var speed = 5;
+            var frequency = 1;
+            var ease = 'ease';
+
+            // PRIVATE VARIABLES
+
+            var timeout = null;
+            var element = null;
+            var overlay = null;
+            var current = 0;
+
+            var random = function(min, max) {
+
+                return Math.floor(Math.random() * (max - min + 1) + min);
+
+            };
+
+            var time = function() {
+
+                return random(1, 6) / speed;
+
+            };
+
+            var delay = function() {
+
+                return random(1, 2) / speed;
+
+            };
+
+            var frequency = function() {
+
+                return random(0, frequency);
+
+            };
+
+            var width = function() {
+
+                var min = current;
+
+                var remain = 100 - current;
+
+                var distance = Math.floor(remain / ratio);
+
+                var max = min + distance;
+
+                current = random(min, max);
+
+                return current;
+
+            };
+
+            var next = function() {
+
+                var t = time();
+                var d = delay();
+
+                element.style.transitionDuration = t + 's';
+                element.style.transitionDelay = d + 's';
+
+                timeout = setTimeout(function() {
+
+                    move();
+
+                }, ((t * 1000) + (d * 1000)));
+
+            };
+
+            var move = function() {
+
+                element.style.width = width() + '%';
+
+                next();
+
+            };
+
+            me.init = function(params) {
+
+                element = params.element;
+                overlay = params.overlay;
+
+                ease = params.ease || ease;
+                ratio = params.ratio || ratio;
+                speed = params.speed || speed;
+                frequency = params.frequency || frequency;
+
+                overlay.style.opacity = '0';
+                element.style.opacity = '0';
+                element.style.transitionDuration = '1s';
+                element.style.transitionTimingFunction = ease;
+                element.style.transitionDelay = '0s';
+
+            };
+
+            me.start = function() {
+
+                current = 0;
+
+                element.style.opacity = '1';
+                element.style.width = current + '%';
+                overlay.style.opacity = '1';
+                overlay.style.width = '100%';
+
+                next();
+
+            };
+
+            me.end = function() {
+
+                clearTimeout(timeout);
+
+                element.style.transitionDuration = '0.5s';
+                element.style.width = '100%';
+
+                setTimeout(function() {
+                    element.style.opacity = '0';
+                    overlay.style.opacity = '0';
+                }, 1000);
+
+                setTimeout(function() {
+                    element.style.width = '0%';
+                    overlay.style.width = '0%';
+                }, 2000);
+
+            };
+
+            me.clear = function() {
+
+                clearTimeout(timeout);
+
+                current = 0;
+                element.style.transitionDuration = '0.5s';
+                element.style.width = '0%';
+
+                setTimeout(function() {
+                    element.style.opacity = '0';
+                    overlay.style.opacity = '0';
+                }, 100);
+
+                setTimeout(function() {
+                    element.style.width = '0%';
+                    overlay.style.width = '0%';
+                }, 200);
+
+            };
+
+            return me;
+
+        }(window.ProgressBar || {}));
+
+        // YOU CAN INIT THAT PROGRESS BARY WHEREVER YOU WANT
+
+        ProgressBar.init({
+            element: document.getElementById('horizontalProgressBar'),
+            overlay: document.getElementById('horizontalProgressOverlay'),
+            ratio: 4,
+            speed: 0.6,
+            frequency: 1,
+            ease: 'ease'
+        });
+    </script>
+
 
     <script type='text/javascript'>
         document.getElementById('ContextButton').addEventListener('click', function(e) {
@@ -367,6 +629,7 @@
             ])
             if (ret != 0) {
                 showReloadButton();
+                ProgressBar.clear();
                 Module.setStatus("Ошибка распаковки архива .zip.");
                 return;
             }
@@ -375,12 +638,16 @@
 
             if (FS.readdir('/').indexOf('game') < 0) {
                 showReloadButton();
+                ProgressBar.clear();
                 Module.setStatus("Invalid .zip (no top-level 'game' directory).");
                 return;
             }
 
+
             // presplash
+            /*
             presplash = undefined;
+            
             if (FS.readdir('/').indexOf('web-presplash.png') >= 0) {
                 presplash = FS.readFile('/web-presplash.png');
             } else if (FS.readdir('/').indexOf('web-presplash.jpg') >= 0) {
@@ -405,18 +672,40 @@
                 div.appendChild(img)
             } else {
                 Module.print("Загрузка игры, подождите...\n");
-            }
+            }*/
+
+            div = document.getElementById('presplash');
+            c = document.getElementById('canvas');
+            c.parentElement.prepend(div);
+
+
+            Module.setStatus('Инициализация истории...');
+
+            //div.style.display = 'block';
+
+            /*
+
+            presplash = FS.readFile('/web-presplash.jpg');
+            obj_url = window.URL.createObjectURL(new Blob([presplash]));
+            img = document.getElementById('presplash_img');
+            img.src = obj_url;*/
+
+            //ProgressBar.start();
+
 
             // give control back to webui before running main
+
             window.setTimeout(function() {
                 Module.ccall('pyapp_runmain', '', [], [], {
                     async: true
                 })
             }, 200); // smaller delay doesn't update the DOM, esp. on mobile
+
         }
 
         // hook for Ren'Py
         function presplashEnd() {
+            ProgressBar.end();
             document.getElementById('presplash').remove();
         }
 
@@ -443,7 +732,9 @@
         }
     </script>
     <script type='text/javascript'>
-        var statusElement = document.getElementById('status');
+        //var statusElement = document.getElementById('status');
+        //presplash_status
+        var statusElement = document.getElementById('presplash_status');
         var progressElement = document.getElementById('progress');
         var spinnerElement = document.getElementById('spinner');
 
@@ -454,7 +745,8 @@
 
                 return function(text) {};
 
-                var element = document.getElementById('status');
+                //var element = document.getElementById('status');
+                var element = document.getElementById('presplash_status');
                 return function(text) {
                     if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
                     console.log(text);
@@ -530,7 +822,7 @@
 
 
                 if (text == '') {
-                    statusElement.innerHTML = '';
+                    statusElement.innerHTML = '<br />';
                     document.getElementById('statusbar').hidden = true;
                 } else {
                     statusElement.innerHTML = text + '<br />';
@@ -540,10 +832,10 @@
             totalDependencies: 0,
             monitorRunDependencies: function(left) {
                 this.totalDependencies = Math.max(this.totalDependencies, left);
-                Module.setStatus(left ? 'Подготовка... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'Скачивание завершено.');
+                Module.setStatus(left ? 'Подготовка... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')' : 'Загрузка завершена.');
             }
         };
-        Module.setStatus('Скачивание...');
+        Module.setStatus('Загрузка...');
         window.onerror = function(event) {
             // TODO: do not warn on ok events like simulating an infinite loop or exitStatus
             //Module.setStatus('Exception thrown, see JavaScript console');
@@ -558,6 +850,7 @@
             Module.setStatus('Ошибка: ' + event.split('\n')[0] + ' (больше информации доступно в JavaScript console)' + appleWarning);
             spinnerElement.style.display = 'none';
             showReloadButton();
+            ProgressBar.clear();
             Module.setStatus = function(text) {
                 if (text) Module.printErr('[post-exception status] ' + text);
             };
@@ -700,7 +993,7 @@
 
 
 
-        var token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMWM5OWFjMjRjNDFlNWFlNDk4OGRlZWFiYTIxYTY4YzNhODAwNDA2OWU4MjkyOTM0YjJhYTM0ZDBkNjY0ZWZjNThiMmVlNDYwMjkwMDA4NyIsImF1ZCI6IlZQUyIsImV4cCI6MTYzNjI5NDgwNSwiaWF0IjoxNjM2MjA4Mzk1LCJpc3MiOiJLRVlNQVNURVIiLCJ0eXBlIjoiQmVhcmVyIiwianRpIjoiMGFiMmEyYzMtN2UzZi00YTM3LTk0OGMtZGIyMGJkOTljZjMzIiwic2lkIjoiOWZiNmUyZWMtMGMxMi00YmY1LThkNWEtZGM0ODNmZDQ5MTIwIn0.FpsZLzlDY21yWqjrgOPE-5ksKNDP8YWIbhkL3zyxG3G3-w0IMMtnnN5dQ_mSpN_ge1ZfM6Lq1melmAHrkYNMJJp_MePMqBAX3BIn1SnSkZ_yNDI8aIxLlZjFcACQ_xq-TCgryrWixPjHhqNjueyjH67_nzamaq-4yt1azpCs4V1de0Z9VS89lt1pH6hkBdoyYymF6oqbqCWf1L3b_2GMrkN1gpno57QNo_k3BHOynd1ge2WC_IZVXDtQ0gfqC1FU5vjWtgaRv_2PZ8N3G6cBx-xiVKzqGiANxI3du4kMVJTxcxdgbQ84n4DzFnHNoEDY2-t8yqFkt3XFvboLnHJ0gtWZd9ttg3KdNrq7RXrr_OAQCwEiy_RcATMADhrm-wcZazP8hH-ELbG7ChNXpXMJiSeBQekEyo8sRlle_iaP12V-g6ouX4M1Y-5USpi2uX7T0eJdouc7O2aVBNTqobjXkK-HWW_XwYssg_JUCs-RiYL8LgnLVjI6559bz0JJrrj55HhdZHpOX_ozRfIqAp5jQ8Qfo9yPGg9T4RiPd22qh6KPX_KLfFT1vPWbv0e1C_P5pDgyTNycg0wYUDZfQOB5rs24QwoiqJdfDLm8P6ccNDK6z2LcR2L-ZUC8bg-MXFIRjyFy0EWjPxrunKaYUUeJAVF3v-iUurivhz8CugaPlOI'; // <- сюда вставляем токен из smartapp-studio
+        var token = ''; // <- сюда вставляем токен из smartapp-studio
         var initPhrase = 'Запусти Побег в Москву'; // <- сюда вставляем активизационную фразу
         var state = {
             item_selector: {

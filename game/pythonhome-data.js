@@ -56,9 +56,10 @@ Module.expectedDataFileDownloads++;
                         num++;
                     }
                     total = Math.ceil(total * Module.expectedDataFileDownloads / num);
-                    if (Module['setStatus']) Module['setStatus']('Downloading data... (' + loaded + '/' + total + ')');
+                    //Vladislav Khorev translation
+                    if (Module['setStatus']) Module['setStatus']('Загрузка данных... (' + loaded + '/' + total + ')');
                 } else if (!Module.dataFileDownloads) {
-                    if (Module['setStatus']) Module['setStatus']('Downloading data...');
+                    if (Module['setStatus']) Module['setStatus']('Загрузка данных...');
                 }
             };
             xhr.onerror = function(event) {
@@ -345,7 +346,8 @@ Module.expectedDataFileDownloads++;
                         }, preloadFallback);
                 }, preloadFallback);
 
-            if (Module['setStatus']) Module['setStatus']('Скачивание...');
+            //Vladislav Khorev translation
+            if (Module['setStatus']) Module['setStatus']('Загрузка...');
 
         }
         if (Module['calledRun']) {
