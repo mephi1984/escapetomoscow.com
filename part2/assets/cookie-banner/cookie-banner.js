@@ -37,5 +37,5 @@ function initializeCookieBanner(){
 }
 
 // Assigning values to window object
-window.onload = initializeCookieBanner();
+window.onload = initializeCookieBanner;
 window.nk_hideCookieBanner = hideCookieBanner;
